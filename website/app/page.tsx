@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <>
-      <main className="flex flex-1 flex-col max-w-7xl mx-2 ">
+      <main className="flex flex-1 flex-col max-w-7xl mx-4 ">
         <section className="flex flex-1 flex-col justify-end gap-4">
           <Image
             src="/images/eunice-pfp.png"
