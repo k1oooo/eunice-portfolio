@@ -1,26 +1,110 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette */
+  --color-sand: #fdebde;   /* page background */
+  --color-sky: #b1c8ea;    /* primary accent */
+  --color-butter: #ffebaa; /* secondary accent */
+  --color-ink: #382322;    /* text / dark surfaces */
+
+  --background: var(--color-sand);
+  --foreground: var(--color-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sand: var(--color-sand);
+  --color-sky: var(--color-sky);
+  --color-butter: var(--color-butter);
+  --color-ink: var(--color-ink);
+
+  --font-heading: var(--font-gambarino);
+  --font-body: var(--font-switzer);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+  Everything below lives in Tailwind's `base` layer so that utility
+  classes (text-2xl, text-lg, etc.) — which live in the later
+  `utilities` layer — can always override these defaults.
+  Unlayered CSS beats layered CSS regardless of specificity, so without
+  `@layer base` these rules would win over Tailwind classes every time.
+*/
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), Georgia, serif;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  /* Fallback sizes only — add a text-* class on an element to override. */
+  h1 {
+    font-size: clamp(2.5rem, 4vw + 1rem, 5rem);
+  }
+
+  h2 {
+    font-size: clamp(2rem, 2.5vw + 1rem, 3.25rem);
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 1.5vw + 1rem, 2.25rem);
+  }
+
+  p {
+    font-size: clamp(1rem, 0.3vw + 0.9rem, 1.125rem);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  ::selection {
+    background: var(--color-sky);
+    color: var(--color-ink);
+  }
+
+  /* Visible keyboard focus */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
