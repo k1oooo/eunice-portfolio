@@ -18,17 +18,9 @@ export default function Home() {
           </p>
 
           <h1>
-            I am{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">Eunice Moh</span>
-              <span className="absolute bottom-0 left-0 h-[50%] w-full bg-butter" />
-            </span>
-            , I{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">design</span>
-              <span className="absolute bottom-0 left-0 h-[50%] w-full bg-sky" />
-            </span>{" "}
-            the buildings and what fills them.
+            I'm <span className="mark-sky">Eunice Moh</span>, I{" "}
+            <span className="mark-butter">design</span> the buildings and what
+            fills them.
           </h1>
         </section>
       </main>

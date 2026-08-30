@@ -2,10 +2,10 @@
 
 :root {
   /* Brand palette */
-  --color-sand: #fdebde;   /* page background */
-  --color-sky: #b1c8ea;    /* primary accent */
+  --color-sand: #fdebde; /* page background */
+  --color-sky: #b1c8ea; /* primary accent */
   --color-butter: #ffebaa; /* secondary accent */
-  --color-ink: #382322;    /* text / dark surfaces */
+  --color-ink: #382322; /* text / dark surfaces */
 
   --background: var(--color-sand);
   --foreground: var(--color-ink);
@@ -107,4 +107,28 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/*
+  Marker/highlighter-style text highlight. Unlike a flat bg-color block,
+  the color band only covers the lower portion of the line (like a real
+  highlighter pen), and box-decoration-break makes it render correctly
+  per-line if the span wraps.
+*/
+.mark-sky,
+.mark-butter {
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 0.55em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0 0.15em;
+}
+
+.mark-sky {
+  background-image: linear-gradient(var(--color-sky), var(--color-sky));
+}
+
+.mark-butter {
+  background-image: linear-gradient(var(--color-butter), var(--color-butter));
 }
