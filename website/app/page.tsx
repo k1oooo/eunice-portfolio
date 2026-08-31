@@ -10,7 +10,7 @@ export default function Home() {
           width={300}
           height={300}
           alt="eunice pfp"
-          className="border border-sky "
+          className="h-40 w-40 border border-sky object-cover sm:h-[300px] sm:w-[300px]"
         />
         <p className="text-sm uppercase tracking-[0.2em]">
           Assistant Architect · Interior Designer

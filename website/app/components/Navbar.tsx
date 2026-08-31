@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
@@ -11,10 +12,24 @@ const navLinks = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-end bg-sand/80 px-6 py-3 backdrop-blur sm:px-10">
-      <ul className="flex items-center gap-6 font-body text-sm text-ink sm:gap-8 sm:text-xl">
+    <nav className="sticky top-0 z-50 flex items-center justify-between gap-3 bg-sand/80 px-4 py-3 backdrop-blur sm:px-10">
+      {isHome ? (
+        <span />
+      ) : (
+        <Link
+          href="/"
+          aria-label="Back to Home"
+          className="flex shrink-0 items-center gap-2 text-sm uppercase tracking-[0.2em] text-ink transition-colors hover:text-ink/70 sm:text-base"
+        >
+          <ArrowLeft size={16} strokeWidth={2.5} />
+          <span className="hidden sm:inline">Back to Home</span>
+        </Link>
+      )}
+
+      <ul className="flex items-center gap-4 font-body text-sm text-ink sm:gap-8 sm:text-xl">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
 

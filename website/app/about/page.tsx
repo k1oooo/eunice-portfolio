@@ -24,27 +24,27 @@ const rows: Row[] = [
           spans hospitality, residential, and memorial projects across the Klang
           Valley and Johor Bahru.
         </p>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row flex-wrap gap-2">
           <Image
             src="/images/eunice-pfp.png"
             width={280}
             height={280}
             alt="eunice pfp"
-            className="border border-sky "
+            className="h-24 w-24 border border-sky object-cover sm:h-[280px] sm:w-[280px]"
           />
           <Image
             src="/images/eunice-pfp.png"
             width={280}
             height={280}
             alt="eunice pfp"
-            className="border border-sky "
+            className="h-24 w-24 border border-sky object-cover sm:h-[280px] sm:w-[280px]"
           />
           <Image
             src="/images/eunice-pfp.png"
             width={280}
             height={280}
             alt="eunice pfp"
-            className="border border-sky "
+            className="h-24 w-24 border border-sky object-cover sm:h-[280px] sm:w-[280px]"
           />
         </div>
       </div>

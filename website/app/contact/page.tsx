@@ -38,17 +38,21 @@ export default function Contact() {
         {contactMethods.map((method) => (
           <div
             key={method.label}
-            className="flex items-center gap-4 border-b border-ink/10 pb-6"
+            className="flex items-center gap-3 border-b border-ink/10 pb-6 sm:gap-4"
           >
-            <method.Icon size={28} strokeWidth={2} />
+            <method.Icon
+              size={24}
+              strokeWidth={2}
+              className="shrink-0 sm:h-7 sm:w-7"
+            />
             <a
               href={method.href}
-              className="flex flex-col transition-colors hover:text-ink/60"
+              className="flex min-w-0 flex-1 flex-col items-start transition-colors hover:text-ink/60"
             >
               <span className="text-xs uppercase tracking-[0.2em]">
                 {method.label}
               </span>
-              <span className="font-heading text-2xl sm:text-3xl mark-sky">
+              <span className="font-heading text-lg break-words mark-sky sm:text-3xl">
                 {method.value}
               </span>
             </a>
@@ -56,11 +60,15 @@ export default function Contact() {
           </div>
         ))}
 
-        <div className="flex items-center gap-4">
-          <MapPin size={28} strokeWidth={2} />
-          <div className="flex flex-col">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <MapPin
+            size={24}
+            strokeWidth={2}
+            className="shrink-0 sm:h-7 sm:w-7"
+          />
+          <div className="flex min-w-0 flex-col items-start">
             <span className="text-xs uppercase tracking-[0.2em]">Location</span>
-            <span className="font-heading text-2xl sm:text-3xl mark-butter">
+            <span className="font-heading text-lg mark-butter sm:text-3xl">
               Kuala Lumpur, Malaysia
             </span>
           </div>

@@ -24,7 +24,7 @@ export default function CopyButton({ value }: { value: string }) {
       className="ml-auto flex shrink-0 items-center gap-2 text-xs uppercase tracking-[0.2em] transition-colors text-ink hover:text-ink/60 sm:text-sm"
     >
       {copied ? <Check size={18} /> : <Copy size={18} />}
-      {copied ? "Copied" : "Copy"}
+      <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
     </button>
   );
 }
