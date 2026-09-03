@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
@@ -61,11 +62,22 @@ export default async function ProjectPage({
         )}
       </div>
 
-      {/* Placeholder for the project's key photo. Swap for a real <Image> once photography is supplied. */}
-      <div className="flex aspect-[16/9] w-full items-center justify-center border border-ink/10 bg-sky">
-        <span className="font-heading text-8xl text-ink/25">
-          {String(project.index).padStart(2, "0")}
-        </span>
+      {/* Project's key photo, or a placeholder until photography is supplied. */}
+      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink/10 bg-sky">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover"
+          />
+        ) : (
+          <span className="font-heading text-8xl text-ink/25">
+            {String(project.index).padStart(2, "0")}
+          </span>
+        )}
       </div>
 
       {project.photoNote && (
@@ -97,12 +109,47 @@ export default async function ProjectPage({
 
       <p className="max-w-3xl text-xl sm:text-2xl">{project.description}</p>
 
-      {/* Placeholder for the project's architectural drawing. Swap for a real <Image> once available. */}
-      <div className="flex aspect-[4/3] w-full items-center justify-center border border-ink/10 bg-butter sm:aspect-[16/9]">
-        <span className="text-sm uppercase tracking-[0.2em] text-ink/50">
-          Drawing coming soon
-        </span>
+      {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink/10 bg-butter sm:aspect-[16/9]">
+        {project.drawingImage ? (
+          <Image
+            src={project.drawingImage}
+            alt={`${project.title} drawing`}
+            fill
+            sizes="100vw"
+            className="object-contain"
+          />
+        ) : (
+          <span className="text-sm uppercase tracking-[0.2em] text-ink/50">
+            Drawing coming soon
+          </span>
+        )}
       </div>
+
+      {project.drawingNote && (
+        <span className="-mt-4 text-sm italic text-ink/50">
+          {project.drawingNote}
+        </span>
+      )}
+
+      {project.gallery && project.gallery.length > 0 && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {project.gallery.map((src) => (
+            <div
+              key={src}
+              className="relative aspect-[4/3] w-full overflow-hidden border border-ink/10 bg-sand"
+            >
+              <Image
+                src={src}
+                alt={project.title}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {nextProject && (
         <Link

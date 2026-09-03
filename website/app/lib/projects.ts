@@ -13,6 +13,12 @@ export type Project = {
   photoNote?: string;
   /** Path under /public. Leave undefined until real photography is supplied. */
   image?: string;
+  /** Path under /public for the architectural drawing / floor plan. */
+  drawingImage?: string;
+  /** Optional caption for the drawing, e.g. "Ground floor plan". */
+  drawingNote?: string;
+  /** Additional gallery images (renders, alternate angles, etc). */
+  gallery?: string[];
 };
 
 export const projects: Project[] = [
@@ -35,6 +41,16 @@ export const projects: Project[] = [
     type: "Interior Design Consultancy",
     description:
       "A contemporary expression of modest luxury, where soft neutral palettes and organic forms shape an inviting boutique defined by elegance and timeless sophistication.",
+    image: "/images/Projects/naelofar/naelofar_1.jpg",
+    drawingImage: "/images/Projects/naelofar/naelofar_5.jpg",
+    drawingNote: "Ground floor plan",
+    gallery: [
+      "/images/Projects/naelofar/naelofar_7.jpg",
+      "/images/Projects/naelofar/naelofar_2.jpg",
+      "/images/Projects/naelofar/naelofar_3.jpg",
+      "/images/Projects/naelofar/naelofar_4.jpg",
+      "/images/Projects/naelofar/naelofar_6.jpg",
+    ],
   },
   {
     slug: "regent-pavilion-suite",
