@@ -69,8 +69,9 @@ export default async function ProjectPage({
             src={project.image}
             alt={project.title}
             fill
-            sizes="100vw"
+            sizes="(min-width: 1536px) 1536px, 100vw"
             priority
+            quality={90}
             className="object-cover"
           />
         ) : (
@@ -116,7 +117,8 @@ export default async function ProjectPage({
             src={project.drawingImage}
             alt={`${project.title} drawing`}
             fill
-            sizes="100vw"
+            sizes="(min-width: 1536px) 1536px, 100vw"
+            quality={90}
             className="object-contain"
           />
         ) : (
@@ -132,6 +134,26 @@ export default async function ProjectPage({
         </span>
       )}
 
+      {project.additionalDrawings && project.additionalDrawings.length > 0 && (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {project.additionalDrawings.map((src) => (
+            <div
+              key={src}
+              className="relative aspect-[4/3] w-full overflow-hidden border border-ink/10 bg-sand"
+            >
+              <Image
+                src={src}
+                alt={`${project.title} technical drawing`}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                quality={90}
+                className="object-contain"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       {project.gallery && project.gallery.length > 0 && (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {project.gallery.map((src) => (
@@ -144,6 +166,7 @@ export default async function ProjectPage({
                 alt={project.title}
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"
+                quality={90}
                 className="object-cover"
               />
             </div>

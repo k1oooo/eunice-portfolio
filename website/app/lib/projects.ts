@@ -17,6 +17,8 @@ export type Project = {
   drawingImage?: string;
   /** Optional caption for the drawing, e.g. "Ground floor plan". */
   drawingNote?: string;
+  /** Additional technical drawings (elevations, signage details, etc). */
+  additionalDrawings?: string[];
   /** Additional gallery images (renders, alternate angles, etc). */
   gallery?: string[];
 };
@@ -44,6 +46,11 @@ export const projects: Project[] = [
     image: "/images/Projects/naelofar/naelofar_1.jpg",
     drawingImage: "/images/Projects/naelofar/naelofar_5.jpg",
     drawingNote: "Ground floor plan",
+    additionalDrawings: [
+      "/images/Projects/naelofar/naelofar_elevation_drawing_A.png",
+      "/images/Projects/naelofar/naelofar_elevation_drawing_B.png",
+      "/images/Projects/naelofar/naelofar_signage_drawing.png",
+    ],
     gallery: [
       "/images/Projects/naelofar/naelofar_7.jpg",
       "/images/Projects/naelofar/naelofar_2.jpg",
