@@ -133,3 +133,31 @@
 .mark-butter {
   background-image: linear-gradient(var(--color-butter), var(--color-butter));
 }
+
+/*
+  Image-trail pop used by NextProjectLink: each trail item pops in at
+  cursor position, holds briefly, then fades — driven purely by CSS so
+  no per-frame animation state is needed in React.
+*/
+@keyframes trail-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+.animate-trail-pop {
+  animation: trail-pop 700ms ease-out forwards;
+}

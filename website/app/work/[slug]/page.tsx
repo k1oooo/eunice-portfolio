@@ -1,8 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import NextProjectLink from "../../components/NextProjectLink";
 import { getNextProject, getProjectBySlug, projects } from "../../lib/projects";
 
 type Params = { slug: string };
@@ -71,7 +70,6 @@ export default async function ProjectPage({
             fill
             sizes="(min-width: 1536px) 1536px, 100vw"
             priority
-            quality={90}
             className="object-cover"
           />
         ) : (
@@ -110,6 +108,27 @@ export default async function ProjectPage({
 
       <p className="max-w-3xl text-xl sm:text-2xl">{project.description}</p>
 
+      {project.gallery && project.gallery.length > 0 && (
+        <div className="columns-1 gap-4 sm:columns-2">
+          {project.gallery.map((src) => (
+            <div
+              key={src}
+              className="mb-4 w-full break-inside-avoid overflow-hidden border border-ink/10 bg-sand"
+            >
+              {/* Plain img (not next/image) so each photo keeps its own
+                  natural aspect ratio for the masonry gallery layout,
+                  instead of being forced into a uniform cropped box. */}
+              <img
+                src={src}
+                alt={project.title}
+                loading="lazy"
+                className="block h-auto w-full"
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
       <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink/10 bg-butter sm:aspect-[16/9]">
         {project.drawingImage ? (
@@ -118,7 +137,6 @@ export default async function ProjectPage({
             alt={`${project.title} drawing`}
             fill
             sizes="(min-width: 1536px) 1536px, 100vw"
-            quality={90}
             className="object-contain"
           />
         ) : (
@@ -146,7 +164,6 @@ export default async function ProjectPage({
                 alt={`${project.title} technical drawing`}
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"
-                quality={90}
                 className="object-contain"
               />
             </div>
@@ -154,42 +171,18 @@ export default async function ProjectPage({
         </div>
       )}
 
-      {project.gallery && project.gallery.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {project.gallery.map((src) => (
-            <div
-              key={src}
-              className="relative aspect-[4/3] w-full overflow-hidden border border-ink/10 bg-sand"
-            >
-              <Image
-                src={src}
-                alt={project.title}
-                fill
-                sizes="(min-width: 640px) 50vw, 100vw"
-                quality={90}
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      )}
-
       {nextProject && (
-        <Link
-          href={`/work/${nextProject.slug}`}
-          className="group -mx-4 mt-8 flex items-center justify-between gap-6 border-t border-ink/10 px-4 py-10 transition-colors hover:bg-ink hover:text-sand sm:-mx-10 sm:px-10 sm:py-14"
-        >
-          <div className="flex flex-col gap-2">
-            <span className="text-sm uppercase tracking-[0.2em] text-ink/50 group-hover:text-sand/60">
-              Next Project &middot; {String(nextProject.index).padStart(2, "0")}
-            </span>
-            <h2 className="text-3xl sm:text-5xl">{nextProject.title}</h2>
-          </div>
-          <ArrowRight
-            className="h-8 w-8 shrink-0 transition-transform duration-300 group-hover:translate-x-2 sm:h-10 sm:w-10"
-            strokeWidth={1.5}
-          />
-        </Link>
+        <NextProjectLink
+          slug={nextProject.slug}
+          index={nextProject.index}
+          title={nextProject.title}
+          images={[
+            nextProject.image,
+            nextProject.drawingImage,
+            ...(nextProject.additionalDrawings ?? []),
+            ...(nextProject.gallery ?? []),
+          ].filter((src): src is string => Boolean(src))}
+        />
       )}
     </main>
   );
