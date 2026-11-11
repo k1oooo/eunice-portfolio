@@ -2,14 +2,17 @@ import { Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col gap-4 px-6 py-8 sm:flex-row sm:items-start sm:justify-between sm:px-10">
-      <p className="text-sm uppercase leading-tight tracking-wide sm:text-base">
-        Site Content © Eunice Moh
+    <footer
+      className="mt-16 flex flex-col gap-4 border-t border-solid border-ink px-4 py-8 sm:flex-row sm:items-start sm:justify-between sm:px-10"
+      style={{ borderTopWidth: "var(--wall)" }}
+    >
+      <p className="text-sm leading-snug sm:text-base">
+        Site content © Eunice Moh.
         <br />
-        All Rights Reserved
+        All rights reserved.
       </p>
 
-      <div className="flex flex-col text-sm tracking-wide sm:items-end sm:text-base">
+      <div className="flex flex-col gap-1 text-sm sm:items-end sm:text-base">
         <a
           href="tel:+60177288268"
           className="flex items-center gap-2 underline-offset-4 hover:underline"

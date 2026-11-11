@@ -47,22 +47,25 @@ export default async function ProjectPage({
 
   const nextProject = getNextProject(slug);
 
+  const facts = [
+    { label: "Category", value: project.category },
+    { label: "Type", value: project.type },
+    { label: "Location", value: project.location },
+  ];
+
   return (
-    <main className="flex flex-col gap-8 px-4 py-16 sm:px-10 sm:py-24">
-      <div className="flex flex-col gap-4">
-        <span className="text-sm uppercase tracking-[0.2em] text-black">
-          {project.category} &middot; {project.location}
-        </span>
+    <main className="flex flex-col gap-10 px-4 py-12 sm:px-10 sm:py-20">
+      <header className="flex max-w-5xl flex-col items-start gap-5">
         <h1>{project.title}</h1>
         {project.award && (
-          <span className="w-fit rounded-full border border-ink px-3 py-1 text-xs uppercase tracking-[0.15em] text-black sm:text-sm">
+          <p className="bg-butter px-3 py-1 text-sm sm:text-base">
             {project.award}
-          </span>
+          </p>
         )}
-      </div>
+      </header>
 
       {/* Project's key photo, or a placeholder until photography is supplied. */}
-      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink bg-sky">
+      <div className="frame relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-sky">
         {project.image ? (
           <Image
             src={project.image}
@@ -80,41 +83,24 @@ export default async function ProjectPage({
       </div>
 
       {project.photoNote && (
-        <span className="-mt-4 text-sm italic text-black">
-          {project.photoNote}
-        </span>
+        <p className="-mt-6 text-sm italic">{project.photoNote}</p>
       )}
 
-      <div className="grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 border-y border-ink py-6 sm:grid-cols-3">
-        <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-black">
-            Category
-          </span>
-          <span className="text-base sm:text-lg">{project.category}</span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-black">
-            Type
-          </span>
-          <span className="text-base sm:text-lg">{project.type}</span>
-        </div>
-        <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-black">
-            Location
-          </span>
-          <span className="text-base sm:text-lg">{project.location}</span>
-        </div>
-      </div>
+      <dl className="plan max-w-4xl sm:grid-cols-3">
+        {facts.map((fact) => (
+          <div key={fact.label} className="flex flex-col gap-1 p-4 sm:p-5">
+            <dt className="text-sm">{fact.label}</dt>
+            <dd className="font-heading text-lg sm:text-xl">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <p className="max-w-3xl text-xl sm:text-2xl">{project.description}</p>
+      <p className="max-w-[60ch] text-xl sm:text-2xl">{project.description}</p>
 
       {project.gallery && project.gallery.length > 0 && (
         <div className="columns-1 gap-4 sm:columns-2">
           {project.gallery.map((src) => (
-            <div
-              key={src}
-              className="mb-4 w-full break-inside-avoid overflow-hidden bg-sand"
-            >
+            <div key={src} className="mb-4 w-full break-inside-avoid">
               {/* Plain img (not next/image) so each photo keeps its own
                   natural aspect ratio for the masonry gallery layout,
                   instead of being forced into a uniform cropped box. */}
@@ -130,7 +116,7 @@ export default async function ProjectPage({
       )}
 
       {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink bg-butter sm:aspect-[16/9]">
+      <div className="frame relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-butter sm:aspect-[16/9]">
         {project.drawingImage ? (
           <Image
             src={project.drawingImage}
@@ -140,16 +126,12 @@ export default async function ProjectPage({
             className="object-contain"
           />
         ) : (
-          <span className="text-sm uppercase tracking-[0.2em] text-black">
-            Drawing coming soon
-          </span>
+          <p className="text-base">Drawing coming soon</p>
         )}
       </div>
 
       {project.drawingNote && (
-        <span className="-mt-4 text-sm italic text-black">
-          {project.drawingNote}
-        </span>
+        <p className="-mt-6 text-sm italic">{project.drawingNote}</p>
       )}
 
       {project.additionalDrawings && project.additionalDrawings.length > 0 && (
@@ -157,7 +139,7 @@ export default async function ProjectPage({
           {project.additionalDrawings.map((src) => (
             <div
               key={src}
-              className="relative aspect-[4/3] w-full overflow-hidden border border-ink bg-sand"
+              className="frame relative aspect-[4/3] w-full overflow-hidden bg-sand"
             >
               <Image
                 src={src}
@@ -174,7 +156,6 @@ export default async function ProjectPage({
       {nextProject && (
         <NextProjectLink
           slug={nextProject.slug}
-          index={nextProject.index}
           title={nextProject.title}
           images={[
             nextProject.image,

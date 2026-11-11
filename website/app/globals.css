@@ -1,15 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette (backgrounds, accents, lines, dark surfaces) */
-  --color-sand: #fdebde; /* page background */
+  /* Brand palette (backgrounds, accents, walls, dark surfaces) */
+  --color-sand: #fdebde; /* page background, "floor" */
   --color-sky: #b1c8ea; /* primary accent */
   --color-butter: #ffebaa; /* secondary accent */
-  --color-ink: #382322; /* dark surfaces and hairlines, never text */
+  --color-ink: #382322; /* walls and dark surfaces, never text */
 
   --background: var(--color-sand);
   /* Text is deliberately NOT from the palette: black, or white on dark. */
   --foreground: #000000;
+
+  /* Thickness of a drawn wall (poché). Used by every "plan" on the site. */
+  --wall: 4px;
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --wall: 6px;
+  }
 }
 
 @theme inline {
@@ -25,7 +34,7 @@
 }
 
 /*
-  Everything below lives in Tailwind's `base` layer so that utility
+  Everything in this block lives in Tailwind's `base` layer so that utility
   classes (text-2xl, text-lg, etc.) — which live in the later
   `utilities` layer — can always override these defaults.
   Unlayered CSS beats layered CSS regardless of specificity, so without
@@ -59,21 +68,22 @@
   h6 {
     font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
     font-weight: 500;
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   /* Fallback sizes only — add a text-* class on an element to override. */
   h1 {
-    font-size: clamp(2.5rem, 4vw + 1rem, 5rem);
+    font-size: clamp(2.5rem, 5vw + 1rem, 6rem);
   }
 
   h2 {
-    font-size: clamp(2rem, 2.5vw + 1rem, 3.25rem);
+    font-size: clamp(1.75rem, 2.5vw + 1rem, 3.25rem);
   }
 
   h3 {
-    font-size: clamp(1.5rem, 1.5vw + 1rem, 2.25rem);
+    font-size: clamp(1.25rem, 1.5vw + 1rem, 2rem);
   }
 
   p {
@@ -91,7 +101,7 @@
 
   /* Visible keyboard focus */
   :focus-visible {
-    outline: 2px solid #000000;
+    outline: 3px solid #000000;
     outline-offset: 3px;
   }
 }
@@ -108,6 +118,206 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+  ---------------------------------------------------------------------------
+  The plan
+  The site's one visual idea: content sits in rooms, rooms are separated by
+  solid ink walls. Walls are made from the container background showing
+  through the grid gap, so every wall is exactly one thickness (--wall),
+  inside or out.
+  ---------------------------------------------------------------------------
+*/
+.plan {
+  display: grid;
+  gap: var(--wall);
+  padding: var(--wall);
+  background: var(--color-ink);
+}
+
+.plan > * {
+  background: var(--color-sand);
+  min-width: 0;
+}
+
+/* A single framed picture: one thick wall all round. */
+.frame {
+  border: var(--wall) solid var(--color-ink);
+}
+
+/*
+  Works plan (home). One column of stacked rooms on small screens, a drawn
+  floor plan from 48rem up. Grid areas are row-start / col-start / row-end /
+  col-end on a 12 x 6 grid.
+
+      1 2 3 4 5 6 7 8 9 10 11 12
+    1 A A A A A B B B B C  C  C
+    2 A A A A A B B B B C  C  C
+    3 A A A A A B B B B C  C  C
+    4 A A A A A D D D E E  E  E
+    5 F F F G G D D D E E  E  E
+    6 F F F G G D D D E E  E  E
+*/
+.room {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 10rem;
+  padding: 1rem 1.25rem 1.1rem;
+  text-decoration: none;
+  transition: background-color 180ms ease;
+  --room-title: 1.5rem;
+}
+
+.room:hover,
+.room:focus-visible {
+  background: var(--room-fill, var(--color-sky));
+}
+
+.room:focus-visible {
+  outline-offset: calc(var(--wall) * -2);
+}
+
+/* Fill colours alternate through the palette. */
+.plan-works > .room:nth-child(odd) {
+  --room-fill: var(--color-sky);
+}
+
+.plan-works > .room:nth-child(even) {
+  --room-fill: var(--color-butter);
+}
+
+.room-title {
+  font-size: var(--room-title);
+  line-height: 1.05;
+  max-width: 14ch;
+}
+
+.room-meta {
+  font-size: 0.9375rem;
+  line-height: 1.35;
+}
+
+/* Rooms with a photograph show it as the floor; the label sits on a chip. */
+.room-photo {
+  min-height: 18rem;
+}
+
+.room-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.room-chip {
+  position: relative;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  background: var(--color-sand);
+  transition: background-color 180ms ease;
+}
+
+.room:hover .room-chip,
+.room:focus-visible .room-chip {
+  background: var(--room-fill, var(--color-sky));
+}
+
+@media (min-width: 48rem) {
+  .plan-works {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(6, minmax(6.5rem, 1fr));
+  }
+
+  .room,
+  .room-photo {
+    min-height: 0;
+  }
+
+  .room-a {
+    grid-area: 1 / 1 / 5 / 6;
+    --room-title: clamp(2rem, 3.6vw, 3.75rem);
+    padding: 1.5rem 1.75rem;
+  }
+  .room-b {
+    grid-area: 1 / 6 / 4 / 10;
+    --room-title: clamp(1.4rem, 2vw, 2rem);
+  }
+  .room-c {
+    grid-area: 1 / 10 / 4 / 13;
+    --room-title: clamp(1.25rem, 1.8vw, 1.75rem);
+  }
+  .room-d {
+    grid-area: 4 / 6 / 7 / 9;
+    --room-title: clamp(1.25rem, 1.8vw, 1.75rem);
+  }
+  .room-e {
+    grid-area: 4 / 9 / 7 / 13;
+    --room-title: clamp(1.4rem, 2vw, 2rem);
+  }
+  .room-f {
+    grid-area: 5 / 1 / 7 / 4;
+    --room-title: clamp(1.1rem, 1.4vw, 1.4rem);
+  }
+  .room-g {
+    grid-area: 5 / 4 / 7 / 6;
+    --room-title: clamp(1.1rem, 1.4vw, 1.4rem);
+  }
+
+  /*
+    Doors. ::after cuts an opening in the wall (a sand-coloured patch across
+    the wall gap); ::before draws the door leaf and its swing arc inside the
+    room. Purely decorative, hidden on small screens where rooms are stacked.
+  */
+  .room[data-door]::after,
+  .room[data-door]::before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .room[data-door]::after {
+    background: var(--color-sand);
+    z-index: 1;
+  }
+
+  .room[data-door]::before {
+    z-index: 1;
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 0 solid var(--color-ink);
+  }
+
+  /* Door in the right wall, hinged at the top of the opening. */
+  .room[data-door="right"]::after {
+    right: calc(var(--wall) * -1);
+    top: 1.5rem;
+    width: var(--wall);
+    height: 3.25rem;
+  }
+  .room[data-door="right"]::before {
+    right: 0;
+    top: 1.5rem;
+    border-width: 1px 0 1px 1px;
+    border-bottom-left-radius: 100%;
+  }
+
+  /* Door in the bottom wall, hinged at the right of the opening. */
+  .room[data-door="bottom"]::after {
+    bottom: calc(var(--wall) * -1);
+    right: 1.5rem;
+    height: var(--wall);
+    width: 3.25rem;
+  }
+  .room[data-door="bottom"]::before {
+    bottom: 0;
+    right: 1.5rem;
+    border-width: 1px 1px 0 1px;
+    border-top-left-radius: 100%;
   }
 }
 

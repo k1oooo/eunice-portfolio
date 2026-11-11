@@ -21,7 +21,7 @@ export default function CopyButton({ value }: { value: string }) {
       type="button"
       onClick={handleCopy}
       aria-label={copied ? `Copied ${value}` : `Copy ${value}`}
-      className="ml-auto flex shrink-0 items-center gap-2 text-xs uppercase tracking-[0.2em] text-black underline-offset-4 hover:underline sm:text-sm"
+      className="ml-auto flex shrink-0 items-center gap-2 text-sm text-black underline-offset-4 hover:underline"
     >
       {copied ? <Check size={18} /> : <Copy size={18} />}
       <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>

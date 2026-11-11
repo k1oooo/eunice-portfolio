@@ -36,7 +36,7 @@ export default function EducationList() {
       {educationItems.map((item) => (
         <p
           key={item.id}
-          className="text-xl sm:text-2xl cursor-default"
+          className="cursor-default text-lg sm:text-xl"
           onMouseEnter={() => setHovered(item.id)}
           onMouseLeave={() => setHovered(null)}
         >
@@ -46,7 +46,7 @@ export default function EducationList() {
 
       {activeItem && (
         <div
-          className="pointer-events-none fixed z-50 h-40 w-40 -translate-x-1/2 -translate-y-1/2 overflow-hidden sm:h-48 sm:w-48"
+          className="pointer-events-none fixed z-50 h-40 w-40 -translate-x-1/2 -translate-y-1/2 frame overflow-hidden sm:h-48 sm:w-48"
           style={{ left: pos.x, top: pos.y }}
         >
           <Image
