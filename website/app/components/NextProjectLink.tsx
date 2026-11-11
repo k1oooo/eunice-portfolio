@@ -70,7 +70,7 @@ export default function NextProjectLink({
         <div
           key={item.id}
           aria-hidden
-          className="animate-trail-pop pointer-events-none fixed z-50 hidden aspect-[4/3] w-56 overflow-hidden border border-ink bg-paper shadow-2xl sm:block"
+          className="animate-trail-pop pointer-events-none fixed z-50 hidden aspect-[4/3] w-56 overflow-hidden border border-ink bg-sand shadow-2xl sm:block"
           style={{ left: item.x, top: item.y }}
         >
           <Image
@@ -87,10 +87,10 @@ export default function NextProjectLink({
         href={`/work/${slug}`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group relative -mx-4 mt-8 flex items-center justify-between gap-6 border-t border-ink px-4 py-10 transition-colors hover:bg-ink hover:text-paper sm:-mx-10 sm:px-10 sm:py-14"
+        className="group relative -mx-4 mt-8 flex items-center justify-between gap-6 border-t border-ink px-4 py-10 transition-colors hover:bg-ink hover:text-white sm:-mx-10 sm:px-10 sm:py-14"
       >
         <div className="flex flex-col gap-2">
-          <span className="text-sm uppercase tracking-[0.2em] text-ink group-hover:text-paper">
+          <span className="text-sm uppercase tracking-[0.2em] text-black group-hover:text-white">
             Next Project &middot; {String(index).padStart(2, "0")}
           </span>
           <h2 className="text-3xl sm:text-5xl">{title}</h2>

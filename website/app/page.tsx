@@ -10,15 +10,15 @@ export default function Home() {
           width={300}
           height={300}
           alt="eunice pfp"
-          className="h-40 w-40 object-cover sm:h-[300px] sm:w-[300px]"
+          className="h-40 w-40 border border-sky object-cover sm:h-[300px] sm:w-[300px]"
         />
         <p className="text-sm uppercase tracking-[0.2em]">
           Assistant Architect · Interior Designer
         </p>
 
         <h1>
-          I&apos;m <span className="mark">Eunice Moh</span>, I{" "}
-          <span className="mark">design</span> the buildings and what
+          I&apos;m <span className="mark-sky">Eunice Moh</span>, I{" "}
+          <span className="mark-butter">design</span> the buildings and what
           fills them.
         </h1>
       </section>

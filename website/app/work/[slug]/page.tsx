@@ -50,19 +50,19 @@ export default async function ProjectPage({
   return (
     <main className="flex flex-col gap-8 px-4 py-16 sm:px-10 sm:py-24">
       <div className="flex flex-col gap-4">
-        <span className="text-sm uppercase tracking-[0.2em] text-ink">
+        <span className="text-sm uppercase tracking-[0.2em] text-black">
           {project.category} &middot; {project.location}
         </span>
         <h1>{project.title}</h1>
         {project.award && (
-          <span className="w-fit rounded-full border border-ink px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink sm:text-sm">
+          <span className="w-fit rounded-full border border-ink px-3 py-1 text-xs uppercase tracking-[0.15em] text-black sm:text-sm">
             {project.award}
           </span>
         )}
       </div>
 
       {/* Project's key photo, or a placeholder until photography is supplied. */}
-      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink bg-ink text-paper">
+      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink bg-sky">
         {project.image ? (
           <Image
             src={project.image}
@@ -80,26 +80,26 @@ export default async function ProjectPage({
       </div>
 
       {project.photoNote && (
-        <span className="-mt-4 text-sm italic text-ink">
+        <span className="-mt-4 text-sm italic text-black">
           {project.photoNote}
         </span>
       )}
 
       <div className="grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 border-y border-ink py-6 sm:grid-cols-3">
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink">
+          <span className="text-xs uppercase tracking-[0.2em] text-black">
             Category
           </span>
           <span className="text-base sm:text-lg">{project.category}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink">
+          <span className="text-xs uppercase tracking-[0.2em] text-black">
             Type
           </span>
           <span className="text-base sm:text-lg">{project.type}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink">
+          <span className="text-xs uppercase tracking-[0.2em] text-black">
             Location
           </span>
           <span className="text-base sm:text-lg">{project.location}</span>
@@ -113,7 +113,7 @@ export default async function ProjectPage({
           {project.gallery.map((src) => (
             <div
               key={src}
-              className="mb-4 w-full break-inside-avoid overflow-hidden bg-paper"
+              className="mb-4 w-full break-inside-avoid overflow-hidden bg-sand"
             >
               {/* Plain img (not next/image) so each photo keeps its own
                   natural aspect ratio for the masonry gallery layout,
@@ -130,7 +130,7 @@ export default async function ProjectPage({
       )}
 
       {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink bg-paper sm:aspect-[16/9]">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink bg-butter sm:aspect-[16/9]">
         {project.drawingImage ? (
           <Image
             src={project.drawingImage}
@@ -140,14 +140,14 @@ export default async function ProjectPage({
             className="object-contain"
           />
         ) : (
-          <span className="text-sm uppercase tracking-[0.2em] text-ink">
+          <span className="text-sm uppercase tracking-[0.2em] text-black">
             Drawing coming soon
           </span>
         )}
       </div>
 
       {project.drawingNote && (
-        <span className="-mt-4 text-sm italic text-ink">
+        <span className="-mt-4 text-sm italic text-black">
           {project.drawingNote}
         </span>
       )}
@@ -157,7 +157,7 @@ export default async function ProjectPage({
           {project.additionalDrawings.map((src) => (
             <div
               key={src}
-              className="relative aspect-[4/3] w-full overflow-hidden border border-ink bg-paper"
+              className="relative aspect-[4/3] w-full overflow-hidden border border-ink bg-sand"
             >
               <Image
                 src={src}
