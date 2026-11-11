@@ -4,18 +4,19 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./globals.css";
 
-const gambarino = localFont({
-  src: "./fonts/Gambarino-Regular.otf",
-  variable: "--font-gambarino",
-  weight: "400",
+// Font pairing: General Sans (headings) + Quicksand (body), both Medium.
+const generalSans = localFont({
+  src: "../public/fonts/GeneralSans-Medium.otf",
+  variable: "--font-general-sans",
+  weight: "500",
   style: "normal",
   display: "swap",
 });
 
-const switzer = localFont({
-  src: "./fonts/Switzer-Light.otf",
-  variable: "--font-switzer",
-  weight: "300",
+const quicksand = localFont({
+  src: "../public/fonts/Quicksand-Medium.otf",
+  variable: "--font-quicksand",
+  weight: "500",
   style: "normal",
   display: "swap",
 });
@@ -61,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${gambarino.variable} ${switzer.variable} h-full antialiased`}
+      className={`${generalSans.variable} ${quicksand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col  ">
         <Navbar />

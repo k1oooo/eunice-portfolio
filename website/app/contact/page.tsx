@@ -47,7 +47,7 @@ export default function Contact() {
             />
             <a
               href={method.href}
-              className="flex min-w-0 flex-1 flex-col items-start transition-colors hover:text-ink/60"
+              className="flex min-w-0 flex-1 flex-col items-start underline-offset-4 hover:underline"
             >
               <span className="text-xs uppercase tracking-[0.2em]">
                 {method.label}

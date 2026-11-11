@@ -22,7 +22,7 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label="Back to Home"
-          className="flex shrink-0 items-center gap-2 text-sm uppercase tracking-[0.2em] text-ink transition-colors hover:text-ink/70 sm:text-base"
+          className="flex shrink-0 items-center gap-2 text-sm uppercase tracking-[0.2em] text-ink underline-offset-4 hover:underline sm:text-base"
         >
           <ArrowLeft size={16} strokeWidth={2.5} />
           <span className="hidden sm:inline">Back to Home</span>
@@ -37,8 +37,8 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`transition-colors ${
-                  isActive ? "text-ink" : "text-ink/40 hover:text-ink/70"
+                className={`text-ink underline-offset-8 decoration-2 hover:underline ${
+                  isActive ? "underline" : ""
                 }`}
               >
                 {link.label}

@@ -90,7 +90,7 @@ export default function NextProjectLink({
         className="group relative -mx-4 mt-8 flex items-center justify-between gap-6 border-t border-ink/10 px-4 py-10 transition-colors hover:bg-ink hover:text-sand sm:-mx-10 sm:px-10 sm:py-14"
       >
         <div className="flex flex-col gap-2">
-          <span className="text-sm uppercase tracking-[0.2em] text-ink/50 group-hover:text-sand/60">
+          <span className="text-sm uppercase tracking-[0.2em] text-ink group-hover:text-sand">
             Next Project &middot; {String(index).padStart(2, "0")}
           </span>
           <h2 className="text-3xl sm:text-5xl">{title}</h2>

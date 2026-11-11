@@ -108,7 +108,7 @@ export default function About() {
             key={row.id}
             className={`grid grid-cols-1 gap-4 px-4 py-10 sm:grid-cols-[240px_1fr] sm:gap-10 sm:px-10 sm:py-12 ${row.bg}`}
           >
-            <h2 className="text-2xl font-bold sm:text-3xl">{row.label}</h2>
+            <h2 className="text-2xl sm:text-3xl">{row.label}</h2>
             <div>{row.content}</div>
           </div>
         ))}

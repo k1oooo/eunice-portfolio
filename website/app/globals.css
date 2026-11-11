@@ -19,8 +19,8 @@
   --color-butter: var(--color-butter);
   --color-ink: var(--color-ink);
 
-  --font-heading: var(--font-gambarino);
-  --font-body: var(--font-switzer);
+  --font-heading: var(--font-general-sans);
+  --font-body: var(--font-quicksand);
 }
 
 /*
@@ -43,7 +43,7 @@
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-weight: 300;
+    font-weight: 500;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -56,8 +56,8 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading), Georgia, serif;
-    font-weight: 400;
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    font-weight: 500;
     line-height: 1.1;
     letter-spacing: -0.01em;
   }

@@ -50,12 +50,12 @@ export default async function ProjectPage({
   return (
     <main className="flex flex-col gap-8 px-4 py-16 sm:px-10 sm:py-24">
       <div className="flex flex-col gap-4">
-        <span className="text-sm uppercase tracking-[0.2em] text-ink/50">
+        <span className="text-sm uppercase tracking-[0.2em] text-ink">
           {project.category} &middot; {project.location}
         </span>
         <h1>{project.title}</h1>
         {project.award && (
-          <span className="w-fit rounded-full border border-ink/20 px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink/70 sm:text-sm">
+          <span className="w-fit rounded-full border border-ink/20 px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink sm:text-sm">
             {project.award}
           </span>
         )}
@@ -73,33 +73,33 @@ export default async function ProjectPage({
             className="object-cover"
           />
         ) : (
-          <span className="font-heading text-8xl text-ink/25">
+          <span className="font-heading text-8xl text-ink">
             {String(project.index).padStart(2, "0")}
           </span>
         )}
       </div>
 
       {project.photoNote && (
-        <span className="-mt-4 text-sm italic text-ink/50">
+        <span className="-mt-4 text-sm italic text-ink">
           {project.photoNote}
         </span>
       )}
 
       <div className="grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 border-y border-ink/10 py-6 sm:grid-cols-3">
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink/40">
+          <span className="text-xs uppercase tracking-[0.2em] text-ink">
             Category
           </span>
           <span className="text-base sm:text-lg">{project.category}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink/40">
+          <span className="text-xs uppercase tracking-[0.2em] text-ink">
             Type
           </span>
           <span className="text-base sm:text-lg">{project.type}</span>
         </div>
         <div className="flex flex-col gap-1">
-          <span className="text-xs uppercase tracking-[0.2em] text-ink/40">
+          <span className="text-xs uppercase tracking-[0.2em] text-ink">
             Location
           </span>
           <span className="text-base sm:text-lg">{project.location}</span>
@@ -140,14 +140,14 @@ export default async function ProjectPage({
             className="object-contain"
           />
         ) : (
-          <span className="text-sm uppercase tracking-[0.2em] text-ink/50">
+          <span className="text-sm uppercase tracking-[0.2em] text-ink">
             Drawing coming soon
           </span>
         )}
       </div>
 
       {project.drawingNote && (
-        <span className="-mt-4 text-sm italic text-ink/50">
+        <span className="-mt-4 text-sm italic text-ink">
           {project.drawingNote}
         </span>
       )}

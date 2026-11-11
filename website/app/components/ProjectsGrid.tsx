@@ -34,7 +34,7 @@ export default function ProjectsGrid() {
                 />
               ) : (
                 <div className="flex h-full items-center justify-center transition-transform duration-500 ease-out group-hover:scale-105">
-                  <span className="font-heading text-7xl text-ink/25 sm:text-8xl">
+                  <span className="font-heading text-7xl text-ink sm:text-8xl">
                     {String(project.index).padStart(2, "0")}
                   </span>
                 </div>
@@ -49,7 +49,7 @@ export default function ProjectsGrid() {
 
             <div className="flex items-baseline justify-between gap-4">
               <h3 className="text-xl sm:text-2xl">{project.title}</h3>
-              <span className="whitespace-nowrap text-sm text-ink/50">
+              <span className="whitespace-nowrap text-sm text-ink">
                 {project.location}
               </span>
             </div>
