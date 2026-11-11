@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Fade, ImageReveal, SplitReveal } from "../../components/Reveal";
 import NextProjectLink from "../../components/NextProjectLink";
 import { getNextProject, getProjectBySlug, projects } from "../../lib/projects";
 
@@ -46,6 +47,7 @@ export default async function ProjectPage({
   }
 
   const nextProject = getNextProject(slug);
+  const number = String(project.index).padStart(2, "0");
 
   const facts = [
     { label: "Category", value: project.category },
@@ -54,18 +56,40 @@ export default async function ProjectPage({
   ];
 
   return (
-    <main className="flex flex-col gap-10 px-4 py-12 sm:px-10 sm:py-20">
-      <header className="flex max-w-5xl flex-col items-start gap-5">
-        <h1>{project.title}</h1>
+    <main className="page pt-8 md:pt-16">
+      <header className="flex flex-col items-start gap-6">
+        <SplitReveal as="h1" className="title max-w-[14ch]">
+          {project.title}
+        </SplitReveal>
         {project.award && (
-          <p className="bg-accent px-3 py-1 text-sm sm:text-base">
+          <p className="bg-accent px-3 py-1 text-[0.9375rem]">
             {project.award}
           </p>
         )}
       </header>
 
-      {/* Project's key photo, or a placeholder until photography is supplied. */}
-      <div className="frame relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-accent">
+      <Fade
+        as="dl"
+        className="grid-12 mt-12 gap-y-6 border-t border-line pt-5 md:mt-20"
+        delay={0.15}
+      >
+        {facts.map((fact) => (
+          <div key={fact.label} className="col-span-12 sm:col-span-4">
+            <dt className="label">{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
+      </Fade>
+
+      <SplitReveal
+        as="p"
+        className="lede mt-16 md:mt-28 md:ml-[calc(25%+var(--gutter)/4)] md:max-w-[30ch]"
+      >
+        {project.description}
+      </SplitReveal>
+
+      {/* Key photo, or an accent tile with the project number until photography is supplied. */}
+      <ImageReveal className="relative mt-16 aspect-[16/9] w-full bg-accent md:mt-28">
         {project.image ? (
           <Image
             src={project.image}
@@ -76,70 +100,61 @@ export default async function ProjectPage({
             className="object-cover"
           />
         ) : (
-          <span className="font-heading text-8xl">
-            {String(project.index).padStart(2, "0")}
+          <span className="absolute bottom-4 left-5 text-[clamp(4rem,14vw,14rem)] leading-none tracking-[-0.045em]">
+            {number}
           </span>
         )}
-      </div>
+      </ImageReveal>
 
       {project.photoNote && (
-        <p className="-mt-6 text-sm italic">{project.photoNote}</p>
+        <p className="mt-3 text-[0.9375rem] text-mute">{project.photoNote}</p>
       )}
 
-      <dl className="plan max-w-4xl sm:grid-cols-3">
-        {facts.map((fact) => (
-          <div key={fact.label} className="flex flex-col gap-1 p-4 sm:p-5">
-            <dt className="text-sm">{fact.label}</dt>
-            <dd className="font-heading text-lg sm:text-xl">{fact.value}</dd>
-          </div>
-        ))}
-      </dl>
-
-      <p className="max-w-[60ch] text-xl sm:text-2xl">{project.description}</p>
-
       {project.gallery && project.gallery.length > 0 && (
-        <div className="columns-1 gap-4 sm:columns-2">
+        <div className="mt-4 columns-1 gap-4 sm:columns-2">
           {project.gallery.map((src) => (
-            <div key={src} className="mb-4 w-full break-inside-avoid">
+            <ImageReveal key={src} className="mb-4 w-full break-inside-avoid">
               {/* Plain img (not next/image) so each photo keeps its own
-                  natural aspect ratio for the masonry gallery layout,
-                  instead of being forced into a uniform cropped box. */}
+                  natural aspect ratio in the masonry gallery instead of
+                  being cropped to a uniform box. */}
               <img
                 src={src}
                 alt={project.title}
                 loading="lazy"
                 className="block h-auto w-full"
               />
-            </div>
+            </ImageReveal>
           ))}
         </div>
       )}
 
-      {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
-      <div className="frame relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-mist sm:aspect-[16/9]">
-        {project.drawingImage ? (
-          <Image
-            src={project.drawingImage}
-            alt={`${project.title} drawing`}
-            fill
-            sizes="(min-width: 1536px) 1536px, 100vw"
-            className="object-contain"
-          />
-        ) : (
-          <p className="text-base">Drawing coming soon</p>
-        )}
-      </div>
+      {/* Drawing / floor plan, or a placeholder until available. */}
+      <ImageReveal className="relative mt-4 aspect-[4/3] w-full border border-line sm:aspect-[16/9]">
+        <div className="relative flex h-full w-full items-center justify-center">
+          {project.drawingImage ? (
+            <Image
+              src={project.drawingImage}
+              alt={`${project.title} drawing`}
+              fill
+              sizes="(min-width: 1536px) 1536px, 100vw"
+              className="object-contain"
+            />
+          ) : (
+            <p className="text-mute">Drawing coming soon</p>
+          )}
+        </div>
+      </ImageReveal>
 
       {project.drawingNote && (
-        <p className="-mt-6 text-sm italic">{project.drawingNote}</p>
+        <p className="mt-3 text-[0.9375rem] text-mute">{project.drawingNote}</p>
       )}
 
       {project.additionalDrawings && project.additionalDrawings.length > 0 && (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {project.additionalDrawings.map((src) => (
-            <div
+            <ImageReveal
               key={src}
-              className="frame relative aspect-[4/3] w-full overflow-hidden bg-paper"
+              className="relative aspect-[4/3] w-full border border-line"
             >
               <Image
                 src={src}
@@ -148,7 +163,7 @@ export default async function ProjectPage({
                 sizes="(min-width: 640px) 50vw, 100vw"
                 className="object-contain"
               />
-            </div>
+            </ImageReveal>
           ))}
         </div>
       )}

@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 type NextProjectLinkProps = {
   slug: string;
@@ -22,8 +21,8 @@ type TrailItem = {
 // Minimum distance (px) the cursor must travel before another trail image
 // spawns, so a slow hover doesn't flood the screen with copies.
 const MIN_SPAWN_DISTANCE = 25;
-// How long a single trail image stays mounted — must match the
-// `trail-pop` keyframe duration in globals.css.
+// How long a single trail image stays mounted. Must match the `trail-pop`
+// keyframe duration in globals.css.
 const TRAIL_LIFETIME_MS = 700;
 
 export default function NextProjectLink({
@@ -34,8 +33,7 @@ export default function NextProjectLink({
   const [trail, setTrail] = useState<TrailItem[]>([]);
   const lastSpawnRef = useRef<{ x: number; y: number } | null>(null);
   const nextIdRef = useRef(0);
-  // Cycles through every image for the project, one per spawned trail item,
-  // instead of repeating a single image.
+  // Cycles through every image for the project, one per spawned trail item.
   const nextImageIndexRef = useRef(0);
 
   function handleMouseMove(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -68,12 +66,12 @@ export default function NextProjectLink({
         <div
           key={item.id}
           aria-hidden
-          className="animate-trail-pop pointer-events-none fixed z-50 hidden aspect-[4/3] w-56 overflow-hidden frame bg-paper shadow-2xl sm:block"
+          className="animate-trail-pop pointer-events-none fixed z-50 hidden aspect-[4/3] w-56 overflow-hidden border border-line bg-paper sm:block"
           style={{ left: item.x, top: item.y }}
         >
           <Image
             src={item.src}
-            alt={title}
+            alt=""
             fill
             sizes="224px"
             className="object-contain"
@@ -85,16 +83,19 @@ export default function NextProjectLink({
         href={`/work/${slug}`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="group relative mt-8 flex items-center justify-between gap-6 bg-ink px-5 py-10 text-white transition-colors hover:bg-accent hover:text-black sm:px-10 sm:py-14"
+        className="grid-12 mt-24 gap-y-4 border-t border-line pt-6 pb-4 md:mt-40"
       >
-        <div className="flex flex-col gap-2">
-          <span className="text-base">Next project</span>
-          <h2 className="text-3xl sm:text-5xl">{title}</h2>
-        </div>
-        <ArrowRight
-          className="h-8 w-8 shrink-0 transition-transform duration-300 group-hover:translate-x-2 sm:h-10 sm:w-10"
-          strokeWidth={1.5}
-        />
+        <span className="label col-span-12 md:col-span-3">Next project</span>
+        <span className="title col-span-12 md:col-span-9">
+          <span aria-hidden className="text-mute">
+            [{" "}
+          </span>
+          {title}
+          <span aria-hidden className="text-mute">
+            {" "}
+            ]
+          </span>
+        </span>
       </Link>
     </>
   );

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Mail, Phone, MapPin } from "lucide-react";
 import CopyButton from "../components/CopyButton";
+import { Fade, SplitReveal } from "../components/Reveal";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -8,63 +8,66 @@ export const metadata: Metadata = {
     "Get in touch with Eunice Moh Hau Yan, Assistant Architect and Interior Designer based in Kuala Lumpur, Malaysia.",
 };
 
-const contactMethods = [
-  {
-    label: "Phone",
-    value: "+6017-7288268",
-    href: "tel:+60177288268",
-    Icon: Phone,
-    span: "md:col-span-5",
-  },
+const methods = [
   {
     label: "Email",
     value: "eunice.moh00@gmail.com",
     href: "mailto:eunice.moh00@gmail.com",
-    Icon: Mail,
-    span: "md:col-span-7",
+  },
+  {
+    label: "Phone",
+    value: "+6017-7288268",
+    href: "tel:+60177288268",
   },
 ];
 
 export default function Contact() {
   return (
-    <main className="flex flex-col gap-12 px-4 py-12 sm:px-10 sm:py-20">
-      <section className="flex max-w-3xl flex-col gap-6">
-        <h1>Let&apos;s talk</h1>
-        <p className="max-w-[48ch] text-lg sm:text-xl">
+    <main className="page pt-8 md:pt-16">
+      <SplitReveal as="h1" className="title">
+        Let&apos;s talk
+      </SplitReveal>
+
+      <div className="grid-12 mt-16 gap-y-12 md:mt-28">
+        <SplitReveal
+          as="p"
+          className="col-span-12 max-w-[32ch] md:col-span-9 md:col-start-4 lede"
+          delay={0.1}
+        >
           Have a project in mind, or just want to say hello? I&apos;d love to
           hear from you.
-        </p>
-      </section>
+        </SplitReveal>
 
-      <div className="plan md:grid-cols-12">
-        {contactMethods.map((method) => (
-          <div
-            key={method.label}
-            className={`flex items-center gap-4 p-5 sm:p-8 ${method.span}`}
-          >
-            <method.Icon size={26} strokeWidth={2} className="shrink-0" />
-            <a
-              href={method.href}
-              className="flex min-w-0 flex-1 flex-col items-start underline-offset-4 hover:underline"
+        <dl className="col-span-12 border-b border-line">
+          {methods.map((method, i) => (
+            <Fade
+              key={method.label}
+              delay={0.1 * i}
+              className="grid-12 items-baseline gap-y-2 border-t border-line py-6 md:py-8"
             >
-              <span className="text-sm">{method.label}</span>
-              <span className="font-heading text-xl break-words mark sm:text-3xl">
-                {method.value}
-              </span>
-            </a>
-            <CopyButton value={method.value} />
-          </div>
-        ))}
-
-        <div className="flex items-center gap-4 p-5 sm:p-8 md:col-span-12">
-          <MapPin size={26} strokeWidth={2} className="shrink-0" />
-          <div className="flex min-w-0 flex-col items-start">
-            <span className="text-sm">Location</span>
-            <span className="font-heading text-xl mark sm:text-3xl">
+              <dt className="label col-span-12 md:col-span-3">
+                {method.label}
+              </dt>
+              <dd className="col-span-9 break-words text-[clamp(1.5rem,4.2vw,4rem)] leading-[1.05] tracking-[-0.035em] md:col-span-7">
+                <a href={method.href} className="link">
+                  {method.value}
+                </a>
+              </dd>
+              <dd className="col-span-3 text-right md:col-span-2 md:col-start-11">
+                <CopyButton value={method.value} />
+              </dd>
+            </Fade>
+          ))}
+          <Fade
+            className="grid-12 items-baseline gap-y-2 border-t border-line py-6 md:py-8"
+            delay={0.2}
+          >
+            <dt className="label col-span-12 md:col-span-3">Location</dt>
+            <dd className="col-span-12 text-[clamp(1.5rem,4.2vw,4rem)] leading-[1.05] tracking-[-0.035em] md:col-span-9">
               Kuala Lumpur, Malaysia
-            </span>
-          </div>
-        </div>
+            </dd>
+          </Fade>
+        </dl>
       </div>
     </main>
   );

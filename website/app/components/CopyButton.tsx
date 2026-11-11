@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check } from "lucide-react";
 
 export default function CopyButton({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
@@ -12,7 +11,7 @@ export default function CopyButton({ value }: { value: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard API unavailable (e.g. insecure context) — fail silently.
+      // Clipboard API unavailable (e.g. insecure context): fail silently.
     }
   }
 
@@ -21,10 +20,9 @@ export default function CopyButton({ value }: { value: string }) {
       type="button"
       onClick={handleCopy}
       aria-label={copied ? `Copied ${value}` : `Copy ${value}`}
-      className="ml-auto flex shrink-0 items-center gap-2 text-sm text-black underline-offset-4 hover:underline"
+      className="link shrink-0 text-[0.9375rem] text-mute hover:text-ink"
     >
-      {copied ? <Check size={18} /> : <Copy size={18} />}
-      <span className="hidden sm:inline">{copied ? "Copied" : "Copy"}</span>
+      {copied ? "Copied" : "Copy"}
     </button>
   );
 }

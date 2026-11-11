@@ -2,24 +2,23 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
+import Motion from "./components/Motion";
 import "./globals.css";
 
-// Font pairing: General Sans (headings) + Quicksand (body), both Medium.
-const generalSans = localFont({
-  src: "../public/fonts/GeneralSans-Medium.otf",
-  variable: "--font-general-sans",
-  weight: "500",
+// One family: Switzer Light for display and body.
+const switzer = localFont({
+  src: "../public/fonts/Switzer-Light.otf",
+  variable: "--font-switzer",
+  weight: "300",
   style: "normal",
   display: "swap",
 });
 
-const quicksand = localFont({
-  src: "../public/fonts/Quicksand-Medium.otf",
-  variable: "--font-quicksand",
-  weight: "500",
-  style: "normal",
-  display: "swap",
-});
+// Runs before first paint. `data-js` switches on the hidden initial states that
+// GSAP reveals (skipped for reduced motion, so content is never hidden then);
+// `data-loader="skip"` hides the loader on repeat visits this session.
+const motionGate = `try{var d=document.documentElement,r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r)d.dataset.js="1";if(r||sessionStorage.getItem("loader-seen"))d.dataset.loader="skip"}catch(e){}`;
 
 const title = "Eunice Moh Hau Yan | Architect & Interior Designer";
 const description =
@@ -62,11 +61,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${generalSans.variable} ${quicksand.variable} h-full antialiased`}
+      className={`${switzer.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col  ">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionGate }} />
+        <noscript>
+          <style>{".loader{display:none!important}"}</style>
+        </noscript>
+      </head>
+      <body id="top" className="flex min-h-full flex-col">
+        <Motion />
+        <Loader />
         <Navbar />
-        {children}
+        <div className="flex-1">{children}</div>
         <Footer />
       </body>
     </html>
