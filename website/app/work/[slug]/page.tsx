@@ -55,14 +55,14 @@ export default async function ProjectPage({
         </span>
         <h1>{project.title}</h1>
         {project.award && (
-          <span className="w-fit rounded-full border border-ink/20 px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink sm:text-sm">
+          <span className="w-fit rounded-full border border-ink px-3 py-1 text-xs uppercase tracking-[0.15em] text-ink sm:text-sm">
             {project.award}
           </span>
         )}
       </div>
 
       {/* Project's key photo, or a placeholder until photography is supplied. */}
-      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink/10 bg-sky">
+      <div className="relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden border border-ink bg-ink text-paper">
         {project.image ? (
           <Image
             src={project.image}
@@ -73,7 +73,7 @@ export default async function ProjectPage({
             className="object-cover"
           />
         ) : (
-          <span className="font-heading text-8xl text-ink">
+          <span className="font-heading text-8xl">
             {String(project.index).padStart(2, "0")}
           </span>
         )}
@@ -85,7 +85,7 @@ export default async function ProjectPage({
         </span>
       )}
 
-      <div className="grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 border-y border-ink/10 py-6 sm:grid-cols-3">
+      <div className="grid max-w-3xl grid-cols-2 gap-x-8 gap-y-3 border-y border-ink py-6 sm:grid-cols-3">
         <div className="flex flex-col gap-1">
           <span className="text-xs uppercase tracking-[0.2em] text-ink">
             Category
@@ -113,7 +113,7 @@ export default async function ProjectPage({
           {project.gallery.map((src) => (
             <div
               key={src}
-              className="mb-4 w-full break-inside-avoid overflow-hidden border border-ink/10 bg-sand"
+              className="mb-4 w-full break-inside-avoid overflow-hidden bg-paper"
             >
               {/* Plain img (not next/image) so each photo keeps its own
                   natural aspect ratio for the masonry gallery layout,
@@ -130,7 +130,7 @@ export default async function ProjectPage({
       )}
 
       {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink/10 bg-butter sm:aspect-[16/9]">
+      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden border border-ink bg-paper sm:aspect-[16/9]">
         {project.drawingImage ? (
           <Image
             src={project.drawingImage}
@@ -157,7 +157,7 @@ export default async function ProjectPage({
           {project.additionalDrawings.map((src) => (
             <div
               key={src}
-              className="relative aspect-[4/3] w-full overflow-hidden border border-ink/10 bg-sand"
+              className="relative aspect-[4/3] w-full overflow-hidden border border-ink bg-paper"
             >
               <Image
                 src={src}

@@ -38,7 +38,7 @@ export default function Contact() {
         {contactMethods.map((method) => (
           <div
             key={method.label}
-            className="flex items-center gap-3 border-b border-ink/10 pb-6 sm:gap-4"
+            className="flex items-center gap-3 border-b border-ink pb-6 sm:gap-4"
           >
             <method.Icon
               size={24}
@@ -52,7 +52,7 @@ export default function Contact() {
               <span className="text-xs uppercase tracking-[0.2em]">
                 {method.label}
               </span>
-              <span className="font-heading text-lg break-words mark-sky sm:text-3xl">
+              <span className="font-heading text-lg break-words mark sm:text-3xl">
                 {method.value}
               </span>
             </a>
@@ -68,7 +68,7 @@ export default function Contact() {
           />
           <div className="flex min-w-0 flex-col items-start">
             <span className="text-xs uppercase tracking-[0.2em]">Location</span>
-            <span className="font-heading text-lg mark-butter sm:text-3xl">
+            <span className="font-heading text-lg mark sm:text-3xl">
               Kuala Lumpur, Malaysia
             </span>
           </div>
