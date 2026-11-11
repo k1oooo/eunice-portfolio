@@ -48,7 +48,7 @@ export default function Contact() {
               className="flex min-w-0 flex-1 flex-col items-start underline-offset-4 hover:underline"
             >
               <span className="text-sm">{method.label}</span>
-              <span className="font-heading text-xl break-words mark-sky sm:text-3xl">
+              <span className="font-heading text-xl break-words mark sm:text-3xl">
                 {method.value}
               </span>
             </a>
@@ -60,7 +60,7 @@ export default function Contact() {
           <MapPin size={26} strokeWidth={2} className="shrink-0" />
           <div className="flex min-w-0 flex-col items-start">
             <span className="text-sm">Location</span>
-            <span className="font-heading text-xl mark-butter sm:text-3xl">
+            <span className="font-heading text-xl mark sm:text-3xl">
               Kuala Lumpur, Malaysia
             </span>
           </div>

@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  /* Brand palette (backgrounds, accents, walls, dark surfaces) */
-  --color-sand: #fdebde; /* page background, "floor" */
-  --color-sky: #b1c8ea; /* primary accent */
-  --color-butter: #ffebaa; /* secondary accent */
-  --color-ink: #382322; /* walls and dark surfaces, never text */
+  /* Palette: grays plus one accent */
+  --color-paper: #f2f2f2; /* page background, "floor" */
+  --color-mist: #dcdcdc; /* quiet gray fills */
+  --color-ink: #262626; /* walls and dark surfaces, never text */
+  --color-accent: #b1c8ea; /* the one accent */
 
-  --background: var(--color-sand);
+  --background: var(--color-paper);
   /* Text is deliberately NOT from the palette: black, or white on dark. */
   --foreground: #000000;
 
@@ -24,10 +24,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-sand: var(--color-sand);
-  --color-sky: var(--color-sky);
-  --color-butter: var(--color-butter);
+  --color-paper: var(--color-paper);
+  --color-mist: var(--color-mist);
   --color-ink: var(--color-ink);
+  --color-accent: var(--color-accent);
 
   --font-heading: var(--font-general-sans);
   --font-body: var(--font-quicksand);
@@ -95,7 +95,7 @@
   }
 
   ::selection {
-    background: var(--color-sky);
+    background: var(--color-accent);
     color: #000000;
   }
 
@@ -138,7 +138,7 @@
 }
 
 .plan > * {
-  background: var(--color-sand);
+  background: var(--color-paper);
   min-width: 0;
 }
 
@@ -175,20 +175,11 @@
 
 .room:hover,
 .room:focus-visible {
-  background: var(--room-fill, var(--color-sky));
+  background: var(--room-fill, var(--color-accent));
 }
 
 .room:focus-visible {
   outline-offset: calc(var(--wall) * -2);
-}
-
-/* Fill colours alternate through the palette. */
-.plan-works > .room:nth-child(odd) {
-  --room-fill: var(--color-sky);
-}
-
-.plan-works > .room:nth-child(even) {
-  --room-fill: var(--color-butter);
 }
 
 .room-title {
@@ -218,13 +209,13 @@
   align-self: flex-start;
   margin-top: auto;
   padding: 0.75rem 1rem;
-  background: var(--color-sand);
+  background: var(--color-paper);
   transition: background-color 180ms ease;
 }
 
 .room:hover .room-chip,
 .room:focus-visible .room-chip {
-  background: var(--room-fill, var(--color-sky));
+  background: var(--room-fill, var(--color-accent));
 }
 
 @media (min-width: 48rem) {
@@ -269,7 +260,7 @@
   }
 
   /*
-    Doors. ::after cuts an opening in the wall (a sand-coloured patch across
+    Doors. ::after cuts an opening in the wall (a paper-coloured patch across
     the wall gap); ::before draws the door leaf and its swing arc inside the
     room. Purely decorative, hidden on small screens where rooms are stacked.
   */
@@ -281,7 +272,7 @@
   }
 
   .room[data-door]::after {
-    background: var(--color-sand);
+    background: var(--color-paper);
     z-index: 1;
   }
 
@@ -322,26 +313,18 @@
 }
 
 /*
-  Marker/highlighter-style text highlight. The color band only covers the
-  lower portion of the line (like a real highlighter pen), and
+  Marker/highlighter-style text highlight in the accent colour. The band only
+  covers the lower portion of the line (like a real highlighter pen), and
   box-decoration-break makes it render correctly per-line if the span wraps.
 */
-.mark-sky,
-.mark-butter {
+.mark {
+  background-image: linear-gradient(var(--color-accent), var(--color-accent));
   background-repeat: no-repeat;
   background-position: 0 88%;
   background-size: 100% 0.55em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
   padding: 0 0.15em;
-}
-
-.mark-sky {
-  background-image: linear-gradient(var(--color-sky), var(--color-sky));
-}
-
-.mark-butter {
-  background-image: linear-gradient(var(--color-butter), var(--color-butter));
 }
 
 /*

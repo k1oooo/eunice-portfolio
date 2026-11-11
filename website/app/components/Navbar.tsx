@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-solid border-ink bg-sand/90 px-4 py-3 backdrop-blur sm:px-10"
+      className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-solid border-ink bg-paper/90 px-4 py-3 backdrop-blur sm:px-10"
       style={{ borderBottomWidth: "var(--wall)" }}
     >
       <Link href="/" className="font-heading text-lg sm:text-xl">
@@ -35,7 +35,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
                 className={`underline-offset-4 hover:underline ${
-                  isActive ? "mark-sky" : ""
+                  isActive ? "mark" : ""
                 }`}
               >
                 {link.label}

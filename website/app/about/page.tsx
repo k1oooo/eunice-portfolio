@@ -25,8 +25,8 @@ export default function About() {
           <h2 className="text-xl sm:text-2xl">About me</h2>
           <p className="max-w-[60ch] text-lg sm:text-xl">
             Based in Kuala Lumpur, Malaysia, I work across{" "}
-            <span className="mark-butter">architecture</span> and{" "}
-            <span className="mark-butter">interior design</span>, moving
+            <span className="mark">architecture</span> and{" "}
+            <span className="mark">interior design</span>, moving
             between the scale of a building and the scale of the room inside
             it. My work spans hospitality, residential, and memorial projects
             across the Klang Valley and Johor Bahru.

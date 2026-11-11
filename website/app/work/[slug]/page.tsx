@@ -58,14 +58,14 @@ export default async function ProjectPage({
       <header className="flex max-w-5xl flex-col items-start gap-5">
         <h1>{project.title}</h1>
         {project.award && (
-          <p className="bg-butter px-3 py-1 text-sm sm:text-base">
+          <p className="bg-accent px-3 py-1 text-sm sm:text-base">
             {project.award}
           </p>
         )}
       </header>
 
       {/* Project's key photo, or a placeholder until photography is supplied. */}
-      <div className="frame relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-sky">
+      <div className="frame relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden bg-accent">
         {project.image ? (
           <Image
             src={project.image}
@@ -116,7 +116,7 @@ export default async function ProjectPage({
       )}
 
       {/* Project's architectural drawing / floor plan, or a placeholder until available. */}
-      <div className="frame relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-butter sm:aspect-[16/9]">
+      <div className="frame relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-mist sm:aspect-[16/9]">
         {project.drawingImage ? (
           <Image
             src={project.drawingImage}
@@ -139,7 +139,7 @@ export default async function ProjectPage({
           {project.additionalDrawings.map((src) => (
             <div
               key={src}
-              className="frame relative aspect-[4/3] w-full overflow-hidden bg-sand"
+              className="frame relative aspect-[4/3] w-full overflow-hidden bg-paper"
             >
               <Image
                 src={src}
