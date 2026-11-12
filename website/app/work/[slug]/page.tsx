@@ -1,8 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fade, ImageReveal, SplitReveal } from "../../components/Reveal";
 import NextProjectLink from "../../components/NextProjectLink";
+import RollText from "../../components/RollText";
 import { getNextProject, getProjectBySlug, projects } from "../../lib/projects";
 
 type Params = { slug: string };
@@ -53,43 +56,42 @@ export default async function ProjectPage({
     { label: "Category", value: project.category },
     { label: "Type", value: project.type },
     { label: "Location", value: project.location },
+    project.award
+      ? { label: "Award", value: project.award }
+      : {
+          label: "Project",
+          value: `${number} / ${String(projects.length).padStart(2, "0")}`,
+        },
   ];
 
   return (
-    <main className="page pt-8 md:pt-16">
-      <header className="flex flex-col items-start gap-6">
-        <SplitReveal as="h1" className="title max-w-[14ch]">
+    <main className="page">
+      {/* Oversized title sitting low in a tall, mostly empty header zone. */}
+      <header className="flex min-h-[44svh] items-end pb-8 md:min-h-[52svh] md:pb-10">
+        <SplitReveal
+          as="h1"
+          className="title max-w-[18ch] text-[clamp(3rem,8vw,8rem)] tracking-[-0.055em]"
+        >
           {project.title}
         </SplitReveal>
-        {project.award && (
-          <p className="bg-accent px-3 py-1 text-[0.9375rem]">
-            {project.award}
-          </p>
-        )}
       </header>
 
+      {/* One-line meta row: grey label, black value, spread across the width. */}
       <Fade
         as="dl"
-        className="grid-12 mt-12 gap-y-6 border-t border-line pt-5 md:mt-20"
+        className="grid grid-cols-2 gap-x-[var(--gutter)] gap-y-3 pb-5 text-[1.0625rem] md:grid-cols-4 md:justify-between md:pb-6"
         delay={0.15}
       >
         {facts.map((fact) => (
-          <div key={fact.label} className="col-span-12 sm:col-span-4">
+          <div key={fact.label} className="flex flex-wrap gap-x-3">
             <dt className="label">{fact.label}</dt>
             <dd>{fact.value}</dd>
           </div>
         ))}
       </Fade>
 
-      <SplitReveal
-        as="p"
-        className="lede mt-16 md:mt-28 md:ml-[calc(25%+var(--gutter)/4)] md:max-w-[30ch]"
-      >
-        {project.description}
-      </SplitReveal>
-
       {/* Key photo, or an accent tile with the project number until photography is supplied. */}
-      <ImageReveal className="relative mt-16 aspect-[16/9] w-full bg-accent md:mt-28">
+      <ImageReveal className="relative aspect-[16/9] w-full bg-accent">
         {project.image ? (
           <Image
             src={project.image}
@@ -109,6 +111,13 @@ export default async function ProjectPage({
       {project.photoNote && (
         <p className="mt-3 text-[0.9375rem] text-mute">{project.photoNote}</p>
       )}
+
+      <SplitReveal
+        as="p"
+        className="lede my-16 md:my-28 md:ml-[calc(25%+var(--gutter)/4)] md:max-w-[30ch]"
+      >
+        {project.description}
+      </SplitReveal>
 
       {project.gallery && project.gallery.length > 0 && (
         <div className="mt-4 columns-1 gap-4 sm:columns-2">
@@ -178,6 +187,15 @@ export default async function ProjectPage({
           />
         </Fade>
       )}
+
+      {/* Floating pill, pinned bottom centre while the page scrolls. */}
+      <Link
+        href="/"
+        className="fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-md bg-black px-4 py-3 text-[1.0625rem] leading-none text-white"
+      >
+        <ChevronLeft size={16} strokeWidth={2} aria-hidden />
+        <RollText>Back to all works</RollText>
+      </Link>
     </main>
   );
 }
