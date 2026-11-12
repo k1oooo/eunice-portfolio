@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Motion from "./components/Motion";
+import PageShell from "./components/PageShell";
 import "./globals.css";
 
-// One family: Switzer Light for display and body.
-const switzer = localFont({
-  src: "../public/fonts/Switzer-Light.otf",
-  variable: "--font-switzer",
-  weight: "300",
+// One family at a heavier weight: General Sans Medium for display and body,
+// matching the reference's tight, medium-weight grotesk.
+const sans = localFont({
+  src: "../public/fonts/GeneralSans-Medium.otf",
+  variable: "--font-general-sans",
+  weight: "500",
   style: "normal",
   display: "swap",
 });
@@ -61,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${switzer.variable} h-full antialiased`}
+      className={`${sans.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -70,12 +71,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{".loader{display:none!important}"}</style>
         </noscript>
       </head>
-      <body id="top" className="flex min-h-full flex-col">
+      <body id="top" className="min-h-full">
         <Motion />
         <Loader />
         <Navbar />
-        <div className="flex-1">{children}</div>
-        <Footer />
+        <PageShell>{children}</PageShell>
       </body>
     </html>
   );

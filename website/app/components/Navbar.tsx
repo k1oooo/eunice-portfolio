@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, lockScroll, prefersReducedMotion } from "../lib/motion";
+import Clock from "./Clock";
+import RollText from "./RollText";
 
 const links = [
   { label: "Work", href: "/" },
@@ -64,7 +66,8 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
           </li>
         ))}
       </ul>
-      <p data-menu-foot className="text-mute">
+      <p data-menu-foot>
+        <Clock className="mr-2 text-mute" />
         Kuala Lumpur, Malaysia
       </p>
     </div>
@@ -74,7 +77,6 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const header = useRef<HTMLElement>(null);
 
   const isWork = pathname === "/" || pathname.startsWith("/work");
 
@@ -92,50 +94,19 @@ export default function Navbar() {
     };
   }, [open]);
 
-  // Slide away when scrolling down, return as soon as the visitor scrolls up.
-  useEffect(() => {
-    const el = header.current;
-    if (!el || prefersReducedMotion()) return;
-
-    let lastY = window.scrollY;
-    let hidden = false;
-    const toggle = (hide: boolean) => {
-      if (hide === hidden) return;
-      hidden = hide;
-      gsap.to(el, {
-        yPercent: hide ? -100 : 0,
-        duration: 0.6,
-        ease: "power3.out",
-        overwrite: "auto",
-        onComplete: () => {
-          if (!hide) gsap.set(el, { clearProps: "transform" });
-        },
-      });
-    };
-
-    const onScroll = () => {
-      const y = window.scrollY;
-      const dy = y - lastY;
-      if (Math.abs(dy) < 6) return;
-      toggle(dy > 0 && y > 160);
-      lastY = y;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const close = () => setOpen(false);
 
   return (
     <>
-      <header ref={header} className="page sticky top-0 z-50 bg-paper">
+      {/* Transparent and fixed. White text + difference blending keeps it legible
+        on any background: black on white, light on the grey contact panel. */}
+      <header className="page fixed inset-x-0 top-0 z-50 text-white mix-blend-difference">
         <nav
           aria-label="Main"
           className="grid-12 h-(--header-h) items-center text-[0.9375rem]"
         >
           <Link href="/" onClick={close} className="col-span-6 md:col-span-3">
-            Eunice Moh
+            <RollText>Eunice Moh</RollText>
           </Link>
 
           <p className="col-span-4 hidden md:block">
@@ -147,9 +118,9 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     aria-current={current ? "page" : undefined}
-                    className="link"
+                    className="current-underline"
                   >
-                    {link.label}
+                    <RollText>{link.label}</RollText>
                   </Link>
                   {i < links.length - 1 && ", "}
                 </span>
@@ -157,17 +128,18 @@ export default function Navbar() {
             })}
           </p>
 
-          <p className="col-span-3 hidden text-mute md:block">
-            : Kuala Lumpur, MY
+          <p className="col-span-3 hidden md:block">
+            <Clock className="mr-2 text-white/50" />
+            Kuala Lumpur, MY
           </p>
 
           <div className="col-span-6 text-right md:col-span-2">
             <Link
               href="/contact"
               aria-current={pathname === "/contact" ? "page" : undefined}
-              className="link hidden md:inline"
+              className="current-underline hidden md:inline"
             >
-              Contact
+              <RollText>Contact</RollText>
             </Link>
             <button
               type="button"
@@ -176,7 +148,7 @@ export default function Navbar() {
               aria-controls="menu"
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? "Close" : "Menu"}
+              <RollText>{open ? "Close" : "Menu"}</RollText>
             </button>
           </div>
         </nav>

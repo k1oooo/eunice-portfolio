@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Fade, Magnetic, SplitReveal } from "./components/Reveal";
+import RollText from "./components/RollText";
+import { Fade, SplitReveal } from "./components/Reveal";
 import WorksList from "./components/WorksList";
 import { projects } from "./lib/projects";
 
@@ -24,10 +25,11 @@ export default function Home() {
           I design the buildings and what fills them.
         </SplitReveal>
 
-        <Fade className="self-start" delay={0.9} y={0}>
-          <a href="#about" className="link text-[0.9375rem]">
+        <Fade className="self-start" delay={0.9} y={0} start="top 100%">
+          {/* A hint, not a control: same grey as the header clock. */}
+          <p className="text-[0.9375rem] text-faint select-none">
             [ Scroll down ]
-          </a>
+          </p>
         </Fade>
       </section>
 
@@ -53,11 +55,9 @@ export default function Home() {
               My work spans restaurants, retail, homes and memorials across the
               Klang Valley and Johor Bahru.
             </p>
-            <Magnetic>
-              <Link href="/about" className="link">
-                [ About me ]
-              </Link>
-            </Magnetic>
+            <Link href="/about">
+              <RollText>[ About me ]</RollText>
+            </Link>
           </Fade>
         </div>
       </section>
@@ -76,29 +76,6 @@ export default function Home() {
           </p>
         </Fade>
         <WorksList projects={projects} />
-      </section>
-
-      <section
-        className="page grid-12 gap-y-8 pt-24 md:pt-44"
-        aria-labelledby="cta-heading"
-      >
-        <Fade as="p" className="label col-span-12 md:col-span-3" y={12}>
-          Contact
-        </Fade>
-        <div className="col-span-12 md:col-span-9">
-          <SplitReveal as="h2" className="lede">
-            <span id="cta-heading">
-              Have a project in mind, or just want to say hello?
-            </span>
-          </SplitReveal>
-          <Fade className="mt-8" delay={0.2}>
-            <Magnetic>
-              <Link href="/contact" className="link">
-                [ Get in touch ]
-              </Link>
-            </Magnetic>
-          </Fade>
-        </div>
       </section>
     </main>
   );

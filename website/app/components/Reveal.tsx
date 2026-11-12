@@ -1,6 +1,6 @@
 "use client";
 
-import { createElement, useEffect, useRef } from "react";
+import { createElement } from "react";
 import type { CSSProperties, ElementType, ReactNode } from "react";
 import { gsap, ScrollTrigger, SplitText, useMotion } from "../lib/motion";
 
@@ -70,7 +70,8 @@ export function Fade({
   children,
   delay = 0,
   y = 24,
-}: BaseProps & { y?: number }) {
+  start = "top 92%",
+}: BaseProps & { y?: number; start?: string }) {
   const ref = useMotion<HTMLElement>((el) => {
     gsap.fromTo(
       el,
@@ -84,7 +85,7 @@ export function Fade({
         // A lingering transform would turn this into a containing block for
         // any position:fixed descendants.
         clearProps: "transform",
-        scrollTrigger: { trigger: el, start: "top 92%", once: true },
+        scrollTrigger: { trigger: el, start, once: true },
       },
     );
   });
@@ -142,54 +143,5 @@ export function ImageReveal({
         {children}
       </div>
     </div>
-  );
-}
-
-/** Inline element that leans toward the cursor, then springs back. Fine pointers only. */
-export function Magnetic({
-  children,
-  strength = 0.35,
-}: {
-  children: ReactNode;
-  strength?: number;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (
-      !el ||
-      !window.matchMedia("(hover: hover) and (pointer: fine)").matches ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      return;
-    }
-
-    const xTo = gsap.quickTo(el, "x", { duration: 0.5, ease: "power3" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.5, ease: "power3" });
-
-    const move = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect();
-      xTo((e.clientX - (r.left + r.width / 2)) * strength);
-      yTo((e.clientY - (r.top + r.height / 2)) * strength);
-    };
-    const leave = () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: "elastic.out(1, 0.45)" });
-    };
-
-    el.addEventListener("mousemove", move);
-    el.addEventListener("mouseleave", leave);
-    return () => {
-      el.removeEventListener("mousemove", move);
-      el.removeEventListener("mouseleave", leave);
-      gsap.killTweensOf(el);
-      gsap.set(el, { clearProps: "transform" });
-    };
-  }, [strength]);
-
-  return (
-    <span ref={ref} className="inline-block p-4 -m-4">
-      {children}
-    </span>
   );
 }

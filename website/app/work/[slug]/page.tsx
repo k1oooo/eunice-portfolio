@@ -169,16 +169,14 @@ export default async function ProjectPage({
       )}
 
       {nextProject && (
-        <NextProjectLink
-          slug={nextProject.slug}
-          title={nextProject.title}
-          images={[
-            nextProject.image,
-            nextProject.drawingImage,
-            ...(nextProject.additionalDrawings ?? []),
-            ...(nextProject.gallery ?? []),
-          ].filter((src): src is string => Boolean(src))}
-        />
+        <Fade>
+          <NextProjectLink
+            slug={nextProject.slug}
+            title={nextProject.title}
+            index={nextProject.index}
+            image={nextProject.image ?? nextProject.drawingImage}
+          />
+        </Fade>
       )}
     </main>
   );

@@ -7,6 +7,8 @@
   --mute: #6b6b6b; /* secondary text, 5.3:1 on white */
   --line: #d9d9d9; /* hairline rules */
   --accent: #b1c8ea; /* selection + empty image tiles only */
+  --contact: #cbd1cc; /* contact panel, sampled from the reference */
+  --faint: #808080; /* the header clock's grey; also the scroll hint */
 
   --gutter: 1rem;
   --header-h: 3.5rem;
@@ -31,7 +33,9 @@
   --color-mute: var(--mute);
   --color-line: var(--line);
   --color-accent: var(--accent);
-  --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
+  --color-contact: var(--contact);
+  --color-faint: var(--faint);
+  --font-sans: var(--font-general-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Base layer so Tailwind utilities (later layer) can always override. */
@@ -44,7 +48,7 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 500;
     font-size: 1.0625rem;
     line-height: 1.45;
     -webkit-font-smoothing: antialiased;
@@ -55,7 +59,7 @@
   h1,
   h2,
   h3 {
-    font-weight: 300;
+    font-weight: 500;
     letter-spacing: -0.035em;
     line-height: 0.98;
     text-wrap: balance;
@@ -130,7 +134,7 @@
 
 .lede {
   font-size: clamp(1.625rem, 3.2vw, 3.25rem);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1.08;
 }
 
@@ -193,27 +197,35 @@ html.lenis body {
 /* ---------------------------------------------------------------------------
    Project-list hover preview (follows the cursor) and next-project trail.
    ------------------------------------------------------------------------- */
-@keyframes trail-pop {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
-  }
-  15% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
+/* ---------------------------------------------------------------------------
+   Letter roll (RollText). Each letter carries a copy of itself one line below
+   as a text-shadow; on hover every letter slides up by one line, staggered, so
+   the copy takes its place. Nothing else on the button moves.
+   ------------------------------------------------------------------------- */
+.roll-word {
+  display: inline-block;
+  overflow: clip; /* clip, not hidden: keeps the text on its normal baseline */
+  line-height: 1.25;
+  white-space: nowrap;
 }
 
-.animate-trail-pop {
-  animation: trail-pop 700ms ease-out forwards;
+.roll-char {
+  display: inline-block;
+  text-shadow: 0 1.25em currentColor;
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i) * 22ms);
+}
+
+:is(a, button):is(:hover, :focus-visible) .roll-char {
+  transform: translateY(-1.25em);
+}
+
+/* Current page in the nav. */
+.current-underline[aria-current="page"] {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
 }
 
 @media (prefers-reduced-motion: reduce) {
