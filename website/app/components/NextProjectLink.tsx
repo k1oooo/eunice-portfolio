@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import RollText from "./RollText";
 
 type NextProjectLinkProps = {
   slug: string;
@@ -41,10 +40,10 @@ export default function NextProjectLink({
 
         <span className="min-w-0 text-[1.125rem] leading-tight tracking-[-0.02em]">
           <span className="block">
-            <RollText>{title}</RollText>
+            {title}
           </span>
           <span className="block text-white/55">
-            <RollText>Go to next project</RollText>
+            Go to next project
           </span>
         </span>
       </Link>

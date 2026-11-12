@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { ElementType, ReactNode } from "react";
 import { contact } from "../lib/contact";
 import CopyButton from "./CopyButton";
-import RollText from "./RollText";
 import { Fade, ImageReveal, SplitReveal } from "./Reveal";
 
 type PlainProps = {
@@ -74,7 +73,7 @@ export default function ContactSection({
             {contact.socials.map((social, i) => (
               <span key={social.label}>
                 <a href={social.href} target="_blank" rel="noopener noreferrer">
-                  <RollText>{social.label}</RollText>
+                  {social.label}
                 </a>
                 {i < contact.socials.length - 1 && ", "}
               </span>

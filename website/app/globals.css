@@ -197,37 +197,6 @@ html.lenis body {
 /* ---------------------------------------------------------------------------
    Project-list hover preview (follows the cursor) and next-project trail.
    ------------------------------------------------------------------------- */
-/* ---------------------------------------------------------------------------
-   Letter roll (RollText). Each letter carries a copy of itself one line below
-   as a text-shadow; on hover every letter slides up by one line, staggered, so
-   the copy takes its place. Nothing else on the button moves.
-   ------------------------------------------------------------------------- */
-.roll-word {
-  display: inline-block;
-  overflow: clip; /* clip, not hidden: keeps the text on its normal baseline */
-  line-height: 1.25;
-  white-space: nowrap;
-}
-
-.roll-char {
-  display: inline-block;
-  text-shadow: 0 1.25em currentColor;
-  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--i) * 22ms);
-}
-
-:is(a, button):is(:hover, :focus-visible) .roll-char {
-  transform: translateY(-1.25em);
-}
-
-/* Current page in the nav. */
-.current-underline[aria-current="page"] {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 1px;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import RollText from "./components/RollText";
 import { Fade, SplitReveal } from "./components/Reveal";
 import WorksList from "./components/WorksList";
 import { projects } from "./lib/projects";
@@ -56,7 +55,7 @@ export default function Home() {
               Klang Valley and Johor Bahru.
             </p>
             <Link href="/about">
-              <RollText>[ About me ]</RollText>
+              [ About me ]
             </Link>
           </Fade>
         </div>

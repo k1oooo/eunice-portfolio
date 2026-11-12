@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap, lockScroll, prefersReducedMotion } from "../lib/motion";
 import Clock from "./Clock";
-import RollText from "./RollText";
 
 const links = [
   { label: "Work", href: "/" },
@@ -106,7 +105,7 @@ export default function Navbar() {
           className="grid-12 h-(--header-h) items-center text-[0.9375rem]"
         >
           <Link href="/" onClick={close} className="col-span-6 md:col-span-3">
-            <RollText>Eunice Moh</RollText>
+            Eunice Moh
           </Link>
 
           <p className="col-span-4 hidden md:block">
@@ -114,13 +113,16 @@ export default function Navbar() {
               const current =
                 link.href === "/" ? isWork : pathname === link.href;
               return (
-                <span key={link.href}>
+                <span
+                  key={link.href}
+                  className={current ? "" : "text-white/30"}
+                >
                   <Link
                     href={link.href}
                     aria-current={current ? "page" : undefined}
-                    className="current-underline"
+                    className="hover:text-white"
                   >
-                    <RollText>{link.label}</RollText>
+                    {link.label}
                   </Link>
                   {i < links.length - 1 && ", "}
                 </span>
@@ -137,9 +139,9 @@ export default function Navbar() {
             <Link
               href="/contact"
               aria-current={pathname === "/contact" ? "page" : undefined}
-              className="current-underline hidden md:inline"
+              className="hidden md:inline"
             >
-              <RollText>Contact</RollText>
+              Contact
             </Link>
             <button
               type="button"
@@ -148,7 +150,7 @@ export default function Navbar() {
               aria-controls="menu"
               onClick={() => setOpen((v) => !v)}
             >
-              <RollText>{open ? "Close" : "Menu"}</RollText>
+              {open ? "Close" : "Menu"}
             </button>
           </div>
         </nav>
