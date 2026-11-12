@@ -5,6 +5,7 @@ import { projects } from "../lib/projects";
 
 export const metadata: Metadata = {
   title: "About",
+  alternates: { canonical: "/about" },
   description:
     "Eunice Moh Hau Yan is an assistant architect and interior designer based in Kuala Lumpur, working across hospitality, residential, retail and memorial projects.",
 };

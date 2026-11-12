@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
 import Motion from "./components/Motion";
 import PageShell from "./components/PageShell";
+import { site } from "./lib/site";
 import "./globals.css";
 
 // One family at a heavier weight: General Sans Medium for display and body,
@@ -21,16 +22,18 @@ const sans = localFont({
 // `data-loader="skip"` hides the loader on repeat visits this session.
 const motionGate = `try{var d=document.documentElement,r=matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r)d.dataset.js="1";if(r||sessionStorage.getItem("loader-seen"))d.dataset.loader="skip"}catch(e){}`;
 
-const title = "Eunice Moh Hau Yan | Architect & Interior Designer";
+const title = `${site.name} | ${site.role}`;
 const description =
   "Portfolio of Eunice Moh Hau Yan, Assistant Architect and Interior Designer based in Kuala Lumpur, Malaysia. Selected works spanning architecture, interior design, and spatial storytelling.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
     default: title,
-    template: "%s | Eunice Moh Hau Yan",
+    template: `%s | ${site.name}`,
   },
   description,
+  applicationName: site.name,
   keywords: [
     "Eunice Moh Hau Yan",
     "architect Kuala Lumpur",
@@ -38,14 +41,17 @@ export const metadata: Metadata = {
     "architectural portfolio",
     "assistant architect Malaysia",
   ],
-  authors: [{ name: "Eunice Moh Hau Yan" }],
-  creator: "Eunice Moh Hau Yan",
+  authors: [{ name: site.name }],
+  creator: site.name,
+  alternates: { canonical: "/" },
+  // Share images come from app/opengraph-image.tsx and app/twitter-image.tsx.
   openGraph: {
     title,
     description,
+    url: "/",
     type: "website",
     locale: "en_MY",
-    siteName: "Eunice Moh Hau Yan",
+    siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
@@ -58,6 +64,20 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.name,
+  jobTitle: site.role,
+  url: site.url,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: site.locality,
+    addressCountry: site.country,
+  },
+  knowsAbout: ["Architecture", "Interior design"],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -67,6 +87,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: motionGate }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <noscript>
           <style>{".loader{display:none!important}"}</style>
         </noscript>
