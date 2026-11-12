@@ -11,6 +11,39 @@ import {
   useMotion,
 } from "../lib/motion";
 
+/**
+ * "[ Title ]" where each bracket is glued to its neighbouring word, so a long
+ * title wraps between words but never strands a bracket on a line of its own.
+ */
+function BracketedTitle({ title }: { title: string }) {
+  const words = title.split(" ");
+  const last = words.length - 1;
+
+  return (
+    <>
+      {words.map((word, i) => (
+        <span key={i}>
+          {i > 0 && " "}
+          <span className="whitespace-nowrap">
+            {i === 0 && (
+              <span aria-hidden className="text-mute">
+                [{" "}
+              </span>
+            )}
+            {word}
+            {i === last && (
+              <span aria-hidden className="text-mute">
+                {" "}
+                ]
+              </span>
+            )}
+          </span>
+        </span>
+      ))}
+    </>
+  );
+}
+
 const PREVIEW_W = 240;
 const PREVIEW_H = 360; // 2:3 portrait, like the reference's thumbnail
 
@@ -147,14 +180,7 @@ export default function WorksList({ projects }: { projects: Project[] }) {
               className="group grid-12 gap-y-2 py-5 md:items-start md:py-7"
             >
               <span className="col-span-12 text-[clamp(1.75rem,4.2vw,4rem)] leading-[1.02] tracking-[-0.035em] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-3 md:col-span-7 md:group-hover:translate-x-5">
-                <span aria-hidden className="text-mute">
-                  [{" "}
-                </span>
-                {project.title}
-                <span aria-hidden className="text-mute">
-                  {" "}
-                  ]
-                </span>
+                <BracketedTitle title={project.title} />
               </span>
               <span className="col-span-6 text-mute md:col-span-2 md:pt-[0.7rem]">
                 {project.category}

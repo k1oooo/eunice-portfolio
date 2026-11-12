@@ -111,7 +111,7 @@ export default async function ProjectPage({
 
       <SplitReveal
         as="p"
-        className="lede my-16 md:my-28 md:ml-[calc(25%+var(--gutter)/4)] md:max-w-[30ch]"
+        className="lede my-16 hidden md:my-28 md:ml-[calc(25%+var(--gutter)/4)] md:block md:max-w-[30ch]"
       >
         {project.description}
       </SplitReveal>
