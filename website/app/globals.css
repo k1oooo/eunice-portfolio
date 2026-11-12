@@ -150,7 +150,8 @@
   flex-direction: column;
   justify-content: space-between;
   padding: var(--gutter);
-  background: var(--paper);
+  background: var(--ink);
+  color: var(--paper);
   will-change: transform;
 }
 

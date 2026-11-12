@@ -9,7 +9,7 @@ import {
 } from "../lib/motion";
 
 /**
- * Percent counter shown once per session on first load, then the white sheet
+ * Percent counter shown once per session on first load, then the black sheet
  * lifts away and the page reveals underneath. The inline script in layout.tsx
  * hides it via CSS (repeat visit / reduced motion), in which case we just
  * signal "ready" straight away.
@@ -100,12 +100,12 @@ export default function Loader() {
         <p data-loader-meta>
           Eunice Moh
           <br />
-          <span className="text-mute">Architecture &amp; interior</span>
+          <span className="text-white/55">Architecture &amp; interior</span>
         </p>
         <p data-loader-meta className="text-right">
           Kuala Lumpur
           <br />
-          <span className="text-mute">Malaysia</span>
+          <span className="text-white/55">Malaysia</span>
         </p>
       </div>
 
