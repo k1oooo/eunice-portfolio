@@ -1,11 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fade, ImageReveal, SplitReveal } from "../../components/Reveal";
 import NextProjectLink from "../../components/NextProjectLink";
-import RollText from "../../components/RollText";
 import { getNextProject, getProjectBySlug, projects } from "../../lib/projects";
 
 type Params = { slug: string };
@@ -83,8 +80,8 @@ export default async function ProjectPage({
         delay={0.15}
       >
         {facts.map((fact) => (
-          <div key={fact.label} className="flex flex-wrap gap-x-3">
-            <dt className="label">{fact.label}</dt>
+          <div key={fact.label} className="flex flex-wrap items-baseline gap-x-3">
+            <dt className="label text-[1.0625rem]">{fact.label}</dt>
             <dd>{fact.value}</dd>
           </div>
         ))}
@@ -187,15 +184,6 @@ export default async function ProjectPage({
           />
         </Fade>
       )}
-
-      {/* Floating pill, pinned bottom centre while the page scrolls. */}
-      <Link
-        href="/"
-        className="fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-2 rounded-md bg-black px-4 py-3 text-[1.0625rem] leading-none text-white"
-      >
-        <ChevronLeft size={16} strokeWidth={2} aria-hidden />
-        <RollText>Back to all works</RollText>
-      </Link>
     </main>
   );
 }
