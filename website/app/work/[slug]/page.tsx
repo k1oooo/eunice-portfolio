@@ -88,7 +88,7 @@ export default async function ProjectPage({
       </Fade>
 
       {/* Key photo, or an accent tile with the project number until photography is supplied. */}
-      <ImageReveal className="relative aspect-[16/9] w-full bg-accent">
+      <ImageReveal className="relative aspect-[4/5] w-full bg-accent md:aspect-[16/9]">
         {project.image ? (
           <Image
             src={project.image}
@@ -111,7 +111,7 @@ export default async function ProjectPage({
 
       <SplitReveal
         as="p"
-        className="lede my-16 hidden md:my-28 md:ml-[calc(25%+var(--gutter)/4)] md:block md:max-w-[30ch]"
+        className="lede my-16 md:my-28 md:ml-[calc(25%+var(--gutter)/4)] md:max-w-[30ch]"
       >
         {project.description}
       </SplitReveal>
