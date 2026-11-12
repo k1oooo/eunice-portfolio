@@ -98,8 +98,14 @@ export default function Navbar() {
   return (
     <>
       {/* Transparent and fixed. White text + difference blending keeps it legible
-        on any background: black on white, light on the grey contact panel. */}
-      <header className="page fixed inset-x-0 top-0 z-50 text-white mix-blend-difference">
+        on any background: black on white, light on the grey contact panel.
+        While the mobile menu is open it turns solid white so the page behind
+        can't show through the strip above the menu. */}
+      <header
+        className={`page fixed inset-x-0 top-0 z-50 ${
+          open ? "bg-paper text-black" : "text-white mix-blend-difference"
+        }`}
+      >
         <nav
           aria-label="Main"
           className="grid-12 h-(--header-h) items-center text-[0.9375rem]"
