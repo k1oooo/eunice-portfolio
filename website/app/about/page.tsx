@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { Fade, ImageReveal, SplitReveal } from "../components/Reveal";
 import { projects } from "../lib/projects";
@@ -140,7 +139,7 @@ export default function About() {
         </Fade>
 
         <Fade className="rounded-md bg-black p-6 text-white md:col-span-12 md:p-10">
-          <div className="flex flex-col gap-16 md:flex-row md:items-end md:justify-between">
+          <div>
             <div>
               <h2 className="text-[0.9375rem] tracking-normal leading-normal text-white/55">
                 Languages
@@ -149,12 +148,6 @@ export default function About() {
                 {languages.join(", ")}
               </p>
             </div>
-            <Link
-              href="/contact"
-              className="self-start rounded-md bg-white px-4 py-3 leading-none text-black md:self-auto"
-            >
-              Get in touch
-            </Link>
           </div>
         </Fade>
       </section>
