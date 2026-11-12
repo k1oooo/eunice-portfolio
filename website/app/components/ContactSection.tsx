@@ -105,6 +105,14 @@ export default function ContactSection({
                 </a>
                 <CopyButton value={contact.phone} />
               </dd>
+              <dt className="text-[0.9375rem] tracking-normal uppercase max-md:mt-5 max-md:first:mt-0">
+                Resume
+              </dt>
+              <dd>
+                <a href={contact.resumeHref} download className="link">
+                  Download PDF
+                </a>
+              </dd>
             </Rise>
           </dl>
 
